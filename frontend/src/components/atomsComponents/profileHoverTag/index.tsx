@@ -53,7 +53,8 @@ export function ProfileHoverTag({ profileId, name }: { profileId?: string; name?
 			setLoading(true);
 			setNotFound(false);
 			try {
-				const url = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/community/users/${userId}`;
+				const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+				const url = `${apiVersion}/community/users/${userId}`;
 				const response = await api.get<Profile>(url);
 				if (!ignore) {
 					profileCache.set(userId, response.data);

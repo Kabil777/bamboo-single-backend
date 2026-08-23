@@ -17,9 +17,10 @@ export interface FloatingAction {
 interface FloatingActionBarProps {
     actions: (FloatingAction | "separator")[];
     prefix?: React.ReactNode;
+    children?: React.ReactNode;
 }
 
-export default function FloatingActionBar({ actions, prefix }: FloatingActionBarProps) {
+export default function FloatingActionBar({ actions, prefix, children }: FloatingActionBarProps) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -89,6 +90,7 @@ export default function FloatingActionBar({ actions, prefix }: FloatingActionBar
                     </React.Fragment>
                 );
             })}
+            {children}
         </motion.div>
     );
 }

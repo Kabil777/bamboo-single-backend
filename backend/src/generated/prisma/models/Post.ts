@@ -218,6 +218,7 @@ export type PostWhereInput = {
   media?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   likes?: Prisma.PostLikeListRelationFilter
   bookmarks?: Prisma.PostBookmarkListRelationFilter
+  roles?: Prisma.PostRoleListRelationFilter
 }
 
 export type PostOrderByWithRelationInput = {
@@ -234,6 +235,7 @@ export type PostOrderByWithRelationInput = {
   media?: Prisma.MediaAssetOrderByWithRelationInput
   likes?: Prisma.PostLikeOrderByRelationAggregateInput
   bookmarks?: Prisma.PostBookmarkOrderByRelationAggregateInput
+  roles?: Prisma.PostRoleOrderByRelationAggregateInput
 }
 
 export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -253,6 +255,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   media?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   likes?: Prisma.PostLikeListRelationFilter
   bookmarks?: Prisma.PostBookmarkListRelationFilter
+  roles?: Prisma.PostRoleListRelationFilter
 }, "id">
 
 export type PostOrderByWithAggregationInput = {
@@ -297,6 +300,7 @@ export type PostCreateInput = {
   media?: Prisma.MediaAssetCreateNestedOneWithoutPostsInput
   likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateInput = {
@@ -311,6 +315,7 @@ export type PostUncheckedCreateInput = {
   updatedAt?: Date | string
   likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostUpdateInput = {
@@ -325,6 +330,7 @@ export type PostUpdateInput = {
   media?: Prisma.MediaAssetUpdateOneWithoutPostsNestedInput
   likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateInput = {
@@ -339,6 +345,7 @@ export type PostUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyInput = {
@@ -538,6 +545,20 @@ export type PostUncheckedUpdateManyWithoutMediaNestedInput = {
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
+export type PostCreateNestedOneWithoutRolesInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutRolesInput, Prisma.PostUncheckedCreateWithoutRolesInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutRolesInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutRolesInput, Prisma.PostUncheckedCreateWithoutRolesInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutRolesInput
+  upsert?: Prisma.PostUpsertWithoutRolesInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutRolesInput, Prisma.PostUpdateWithoutRolesInput>, Prisma.PostUncheckedUpdateWithoutRolesInput>
+}
+
 export type PostCreateWithoutAuthorInput = {
   id?: string
   title: string
@@ -549,6 +570,7 @@ export type PostCreateWithoutAuthorInput = {
   media?: Prisma.MediaAssetCreateNestedOneWithoutPostsInput
   likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutAuthorInput = {
@@ -562,6 +584,7 @@ export type PostUncheckedCreateWithoutAuthorInput = {
   updatedAt?: Date | string
   likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutAuthorInput = {
@@ -616,6 +639,7 @@ export type PostCreateWithoutLikesInput = {
   author: Prisma.UserCreateNestedOneWithoutPostsInput
   media?: Prisma.MediaAssetCreateNestedOneWithoutPostsInput
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutLikesInput = {
@@ -629,6 +653,7 @@ export type PostUncheckedCreateWithoutLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutLikesInput = {
@@ -658,6 +683,7 @@ export type PostUpdateWithoutLikesInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   media?: Prisma.MediaAssetUpdateOneWithoutPostsNestedInput
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutLikesInput = {
@@ -671,6 +697,7 @@ export type PostUncheckedUpdateWithoutLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateWithoutBookmarksInput = {
@@ -684,6 +711,7 @@ export type PostCreateWithoutBookmarksInput = {
   author: Prisma.UserCreateNestedOneWithoutPostsInput
   media?: Prisma.MediaAssetCreateNestedOneWithoutPostsInput
   likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutBookmarksInput = {
@@ -697,6 +725,7 @@ export type PostUncheckedCreateWithoutBookmarksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutBookmarksInput = {
@@ -726,6 +755,7 @@ export type PostUpdateWithoutBookmarksInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   media?: Prisma.MediaAssetUpdateOneWithoutPostsNestedInput
   likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutBookmarksInput = {
@@ -739,6 +769,7 @@ export type PostUncheckedUpdateWithoutBookmarksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateWithoutMediaInput = {
@@ -752,6 +783,7 @@ export type PostCreateWithoutMediaInput = {
   author: Prisma.UserCreateNestedOneWithoutPostsInput
   likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutMediaInput = {
@@ -765,6 +797,7 @@ export type PostUncheckedCreateWithoutMediaInput = {
   updatedAt?: Date | string
   likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutPostInput
+  roles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutMediaInput = {
@@ -793,6 +826,78 @@ export type PostUpdateManyWithWhereWithoutMediaInput = {
   data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutMediaInput>
 }
 
+export type PostCreateWithoutRolesInput = {
+  id?: string
+  title: string
+  description?: string | null
+  content: string
+  visibility?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutPostsInput
+  media?: Prisma.MediaAssetCreateNestedOneWithoutPostsInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutRolesInput = {
+  id?: string
+  title: string
+  description?: string | null
+  content: string
+  visibility?: string
+  authorId: string
+  mediaId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutRolesInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutRolesInput, Prisma.PostUncheckedCreateWithoutRolesInput>
+}
+
+export type PostUpsertWithoutRolesInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutRolesInput, Prisma.PostUncheckedUpdateWithoutRolesInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutRolesInput, Prisma.PostUncheckedCreateWithoutRolesInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutRolesInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutRolesInput, Prisma.PostUncheckedUpdateWithoutRolesInput>
+}
+
+export type PostUpdateWithoutRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  media?: Prisma.MediaAssetUpdateOneWithoutPostsNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  bookmarks?: Prisma.PostBookmarkUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutPostNestedInput
+}
+
 export type PostCreateManyAuthorInput = {
   id?: string
   title: string
@@ -815,6 +920,7 @@ export type PostUpdateWithoutAuthorInput = {
   media?: Prisma.MediaAssetUpdateOneWithoutPostsNestedInput
   likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutAuthorInput = {
@@ -828,6 +934,7 @@ export type PostUncheckedUpdateWithoutAuthorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutAuthorInput = {
@@ -863,6 +970,7 @@ export type PostUpdateWithoutMediaInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   likes?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutMediaInput = {
@@ -876,6 +984,7 @@ export type PostUncheckedUpdateWithoutMediaInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutPostNestedInput
+  roles?: Prisma.PostRoleUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutMediaInput = {
@@ -897,11 +1006,13 @@ export type PostUncheckedUpdateManyWithoutMediaInput = {
 export type PostCountOutputType = {
   likes: number
   bookmarks: number
+  roles: number
 }
 
 export type PostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   likes?: boolean | PostCountOutputTypeCountLikesArgs
   bookmarks?: boolean | PostCountOutputTypeCountBookmarksArgs
+  roles?: boolean | PostCountOutputTypeCountRolesArgs
 }
 
 /**
@@ -928,6 +1039,13 @@ export type PostCountOutputTypeCountBookmarksArgs<ExtArgs extends runtime.Types.
   where?: Prisma.PostBookmarkWhereInput
 }
 
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostRoleWhereInput
+}
+
 
 export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -943,6 +1061,7 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   media?: boolean | Prisma.Post$mediaArgs<ExtArgs>
   likes?: boolean | Prisma.Post$likesArgs<ExtArgs>
   bookmarks?: boolean | Prisma.Post$bookmarksArgs<ExtArgs>
+  roles?: boolean | Prisma.Post$rolesArgs<ExtArgs>
   _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
@@ -992,6 +1111,7 @@ export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   media?: boolean | Prisma.Post$mediaArgs<ExtArgs>
   likes?: boolean | Prisma.Post$likesArgs<ExtArgs>
   bookmarks?: boolean | Prisma.Post$bookmarksArgs<ExtArgs>
+  roles?: boolean | Prisma.Post$rolesArgs<ExtArgs>
   _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1010,6 +1130,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     media: Prisma.$MediaAssetPayload<ExtArgs> | null
     likes: Prisma.$PostLikePayload<ExtArgs>[]
     bookmarks: Prisma.$PostBookmarkPayload<ExtArgs>[]
+    roles: Prisma.$PostRolePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1419,6 +1540,7 @@ export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Typ
   media<T extends Prisma.Post$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$mediaArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   likes<T extends Prisma.Post$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookmarks<T extends Prisma.Post$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  roles<T extends Prisma.Post$rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1922,6 +2044,30 @@ export type Post$bookmarksArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.PostBookmarkScalarFieldEnum | Prisma.PostBookmarkScalarFieldEnum[]
+}
+
+/**
+ * Post.roles
+ */
+export type Post$rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostRole
+   */
+  select?: Prisma.PostRoleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostRole
+   */
+  omit?: Prisma.PostRoleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostRoleInclude<ExtArgs> | null
+  where?: Prisma.PostRoleWhereInput
+  orderBy?: Prisma.PostRoleOrderByWithRelationInput | Prisma.PostRoleOrderByWithRelationInput[]
+  cursor?: Prisma.PostRoleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostRoleScalarFieldEnum | Prisma.PostRoleScalarFieldEnum[]
 }
 
 /**

@@ -15,7 +15,7 @@ export const DocsCoverRtk = createAsyncThunk<DocsHomeCard[]>(
             createdAt: string;
             author: { id: string; name: string; pictureUrl: string | null };
         }> }>("/api/v1/docs");
-        const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+        const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
         return data.data.map((document) => ({
             id: document.id,
             title: document.title,

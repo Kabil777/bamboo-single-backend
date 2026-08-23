@@ -94,7 +94,7 @@ export default function Profile() {
         setBookmarksLoading(true);
         api.get<{ data: Array<{ id: string; title: string; content: string; mediaId: string | null; createdAt: string; author: { id: string; name: string; pictureUrl: string | null } }> }>("/api/v1/community/me/bookmarks")
             .then(({ data }) => {
-                const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+                const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
                 setBookmarks({ items: data.data.map((post) => ({ id: post.id, title: post.title, description: post.content.replace(/<[^>]*>/g, "").slice(0, 180), coverUrl: post.mediaId ? `${apiBase}/api/v1/media/${post.mediaId}` : "", createdAt: post.createdAt, tags: [], author: { id: post.author.id, name: post.author.name, handle: "", avatarUrl: post.author.pictureUrl } })), hasNext: false, cursor: null });
             })
             .finally(() => setBookmarksLoading(false));

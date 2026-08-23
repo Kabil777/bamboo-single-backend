@@ -229,6 +229,8 @@ export type UserWhereInput = {
   mediaAssets?: Prisma.MediaAssetListRelationFilter
   newsletters?: Prisma.NewsletterListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
+  postRoles?: Prisma.PostRoleListRelationFilter
+  documentRoles?: Prisma.DocumentRoleListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -249,6 +251,8 @@ export type UserOrderByWithRelationInput = {
   mediaAssets?: Prisma.MediaAssetOrderByRelationAggregateInput
   newsletters?: Prisma.NewsletterOrderByRelationAggregateInput
   documents?: Prisma.DocumentOrderByRelationAggregateInput
+  postRoles?: Prisma.PostRoleOrderByRelationAggregateInput
+  documentRoles?: Prisma.DocumentRoleOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -273,6 +277,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   mediaAssets?: Prisma.MediaAssetListRelationFilter
   newsletters?: Prisma.NewsletterListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
+  postRoles?: Prisma.PostRoleListRelationFilter
+  documentRoles?: Prisma.DocumentRoleListRelationFilter
 }, "id" | "email_providerId">
 
 export type UserOrderByWithAggregationInput = {
@@ -325,6 +331,8 @@ export type UserCreateInput = {
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -345,6 +353,8 @@ export type UserUncheckedCreateInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -365,6 +375,8 @@ export type UserUpdateInput = {
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -385,6 +397,8 @@ export type UserUncheckedUpdateInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -589,6 +603,34 @@ export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentsInput, Prisma.UserUpdateWithoutDocumentsInput>, Prisma.UserUncheckedUpdateWithoutDocumentsInput>
 }
 
+export type UserCreateNestedOneWithoutPostRolesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPostRolesInput, Prisma.UserUncheckedCreateWithoutPostRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPostRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPostRolesInput, Prisma.UserUncheckedCreateWithoutPostRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostRolesInput
+  upsert?: Prisma.UserUpsertWithoutPostRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPostRolesInput, Prisma.UserUpdateWithoutPostRolesInput>, Prisma.UserUncheckedUpdateWithoutPostRolesInput>
+}
+
+export type UserCreateNestedOneWithoutDocumentRolesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentRolesInput, Prisma.UserUncheckedCreateWithoutDocumentRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDocumentRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentRolesInput, Prisma.UserUncheckedCreateWithoutDocumentRolesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentRolesInput
+  upsert?: Prisma.UserUpsertWithoutDocumentRolesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentRolesInput, Prisma.UserUpdateWithoutDocumentRolesInput>, Prisma.UserUncheckedUpdateWithoutDocumentRolesInput>
+}
+
 export type UserCreateWithoutRefreshTokenInput = {
   id?: string
   name: string
@@ -606,6 +648,8 @@ export type UserCreateWithoutRefreshTokenInput = {
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokenInput = {
@@ -625,6 +669,8 @@ export type UserUncheckedCreateWithoutRefreshTokenInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokenInput = {
@@ -660,6 +706,8 @@ export type UserUpdateWithoutRefreshTokenInput = {
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokenInput = {
@@ -679,6 +727,8 @@ export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -698,6 +748,8 @@ export type UserCreateWithoutPostsInput = {
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -717,6 +769,8 @@ export type UserUncheckedCreateWithoutPostsInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -752,6 +806,8 @@ export type UserUpdateWithoutPostsInput = {
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -771,6 +827,8 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLikesInput = {
@@ -790,6 +848,8 @@ export type UserCreateWithoutLikesInput = {
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLikesInput = {
@@ -809,6 +869,8 @@ export type UserUncheckedCreateWithoutLikesInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLikesInput = {
@@ -844,6 +906,8 @@ export type UserUpdateWithoutLikesInput = {
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLikesInput = {
@@ -863,6 +927,8 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -882,6 +948,8 @@ export type UserCreateWithoutBookmarksInput = {
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -901,6 +969,8 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -936,6 +1006,8 @@ export type UserUpdateWithoutBookmarksInput = {
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -955,6 +1027,8 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNewslettersInput = {
@@ -974,6 +1048,8 @@ export type UserCreateWithoutNewslettersInput = {
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutUserInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNewslettersInput = {
@@ -993,6 +1069,8 @@ export type UserUncheckedCreateWithoutNewslettersInput = {
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutUserInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNewslettersInput = {
@@ -1028,6 +1106,8 @@ export type UserUpdateWithoutNewslettersInput = {
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutUserNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNewslettersInput = {
@@ -1047,6 +1127,8 @@ export type UserUncheckedUpdateWithoutNewslettersInput = {
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutUserNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMediaAssetsInput = {
@@ -1066,6 +1148,8 @@ export type UserCreateWithoutMediaAssetsInput = {
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutUserInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMediaAssetsInput = {
@@ -1085,6 +1169,8 @@ export type UserUncheckedCreateWithoutMediaAssetsInput = {
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutUserInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMediaAssetsInput = {
@@ -1120,6 +1206,8 @@ export type UserUpdateWithoutMediaAssetsInput = {
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutUserNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaAssetsInput = {
@@ -1139,6 +1227,8 @@ export type UserUncheckedUpdateWithoutMediaAssetsInput = {
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutUserNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDocumentsInput = {
@@ -1158,6 +1248,8 @@ export type UserCreateWithoutDocumentsInput = {
   bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutUserInput
   mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -1177,6 +1269,8 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutUserInput
   mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
   newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -1212,6 +1306,8 @@ export type UserUpdateWithoutDocumentsInput = {
   bookmarks?: Prisma.PostBookmarkUpdateManyWithoutUserNestedInput
   mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -1231,6 +1327,208 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutUserNestedInput
   mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
   newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPostRolesInput = {
+  id?: string
+  name: string
+  email: string
+  pictureUrl?: string | null
+  provider: string
+  providerId: string
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  lastLogin?: Date | string | null
+  refreshToken?: Prisma.RefreshTokenCreateNestedOneWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutUserInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
+  newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  documentRoles?: Prisma.DocumentRoleCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPostRolesInput = {
+  id?: string
+  name: string
+  email: string
+  pictureUrl?: string | null
+  provider: string
+  providerId: string
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  lastLogin?: Date | string | null
+  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedOneWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutUserInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
+  newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  documentRoles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPostRolesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPostRolesInput, Prisma.UserUncheckedCreateWithoutPostRolesInput>
+}
+
+export type UserUpsertWithoutPostRolesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPostRolesInput, Prisma.UserUncheckedUpdateWithoutPostRolesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPostRolesInput, Prisma.UserUncheckedCreateWithoutPostRolesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPostRolesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPostRolesInput, Prisma.UserUncheckedUpdateWithoutPostRolesInput>
+}
+
+export type UserUpdateWithoutPostRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  pictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.RefreshTokenUpdateOneWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.PostBookmarkUpdateManyWithoutUserNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
+  newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  documentRoles?: Prisma.DocumentRoleUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPostRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  pictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.RefreshTokenUncheckedUpdateOneWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
+  newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  documentRoles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDocumentRolesInput = {
+  id?: string
+  name: string
+  email: string
+  pictureUrl?: string | null
+  provider: string
+  providerId: string
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  lastLogin?: Date | string | null
+  refreshToken?: Prisma.RefreshTokenCreateNestedOneWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  likes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.PostBookmarkCreateNestedManyWithoutUserInput
+  mediaAssets?: Prisma.MediaAssetCreateNestedManyWithoutOwnerInput
+  newsletters?: Prisma.NewsletterCreateNestedManyWithoutAuthorInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDocumentRolesInput = {
+  id?: string
+  name: string
+  email: string
+  pictureUrl?: string | null
+  provider: string
+  providerId: string
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  lastLogin?: Date | string | null
+  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedOneWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  likes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.PostBookmarkUncheckedCreateNestedManyWithoutUserInput
+  mediaAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutOwnerInput
+  newsletters?: Prisma.NewsletterUncheckedCreateNestedManyWithoutAuthorInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutAuthorInput
+  postRoles?: Prisma.PostRoleUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDocumentRolesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentRolesInput, Prisma.UserUncheckedCreateWithoutDocumentRolesInput>
+}
+
+export type UserUpsertWithoutDocumentRolesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDocumentRolesInput, Prisma.UserUncheckedUpdateWithoutDocumentRolesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentRolesInput, Prisma.UserUncheckedCreateWithoutDocumentRolesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDocumentRolesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDocumentRolesInput, Prisma.UserUncheckedUpdateWithoutDocumentRolesInput>
+}
+
+export type UserUpdateWithoutDocumentRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  pictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.RefreshTokenUpdateOneWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  likes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.PostBookmarkUpdateManyWithoutUserNestedInput
+  mediaAssets?: Prisma.MediaAssetUpdateManyWithoutOwnerNestedInput
+  newsletters?: Prisma.NewsletterUpdateManyWithoutAuthorNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDocumentRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  pictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshToken?: Prisma.RefreshTokenUncheckedUpdateOneWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  likes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.PostBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  mediaAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutOwnerNestedInput
+  newsletters?: Prisma.NewsletterUncheckedUpdateManyWithoutAuthorNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutAuthorNestedInput
+  postRoles?: Prisma.PostRoleUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1245,6 +1543,8 @@ export type UserCountOutputType = {
   mediaAssets: number
   newsletters: number
   documents: number
+  postRoles: number
+  documentRoles: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1254,6 +1554,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   mediaAssets?: boolean | UserCountOutputTypeCountMediaAssetsArgs
   newsletters?: boolean | UserCountOutputTypeCountNewslettersArgs
   documents?: boolean | UserCountOutputTypeCountDocumentsArgs
+  postRoles?: boolean | UserCountOutputTypeCountPostRolesArgs
+  documentRoles?: boolean | UserCountOutputTypeCountDocumentRolesArgs
 }
 
 /**
@@ -1308,6 +1610,20 @@ export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.DocumentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPostRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostRoleWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDocumentRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DocumentRoleWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1327,6 +1643,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   mediaAssets?: boolean | Prisma.User$mediaAssetsArgs<ExtArgs>
   newsletters?: boolean | Prisma.User$newslettersArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
+  postRoles?: boolean | Prisma.User$postRolesArgs<ExtArgs>
+  documentRoles?: boolean | Prisma.User$documentRolesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1378,6 +1696,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   mediaAssets?: boolean | Prisma.User$mediaAssetsArgs<ExtArgs>
   newsletters?: boolean | Prisma.User$newslettersArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
+  postRoles?: boolean | Prisma.User$postRolesArgs<ExtArgs>
+  documentRoles?: boolean | Prisma.User$documentRolesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1393,6 +1713,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     mediaAssets: Prisma.$MediaAssetPayload<ExtArgs>[]
     newsletters: Prisma.$NewsletterPayload<ExtArgs>[]
     documents: Prisma.$DocumentPayload<ExtArgs>[]
+    postRoles: Prisma.$PostRolePayload<ExtArgs>[]
+    documentRoles: Prisma.$DocumentRolePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1806,6 +2128,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   mediaAssets<T extends Prisma.User$mediaAssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mediaAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   newsletters<T extends Prisma.User$newslettersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$newslettersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NewsletterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  postRoles<T extends Prisma.User$postRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  documentRoles<T extends Prisma.User$documentRolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentRolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2398,6 +2722,54 @@ export type User$documentsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.DocumentScalarFieldEnum | Prisma.DocumentScalarFieldEnum[]
+}
+
+/**
+ * User.postRoles
+ */
+export type User$postRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostRole
+   */
+  select?: Prisma.PostRoleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostRole
+   */
+  omit?: Prisma.PostRoleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostRoleInclude<ExtArgs> | null
+  where?: Prisma.PostRoleWhereInput
+  orderBy?: Prisma.PostRoleOrderByWithRelationInput | Prisma.PostRoleOrderByWithRelationInput[]
+  cursor?: Prisma.PostRoleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostRoleScalarFieldEnum | Prisma.PostRoleScalarFieldEnum[]
+}
+
+/**
+ * User.documentRoles
+ */
+export type User$documentRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DocumentRole
+   */
+  select?: Prisma.DocumentRoleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DocumentRole
+   */
+  omit?: Prisma.DocumentRoleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentRoleInclude<ExtArgs> | null
+  where?: Prisma.DocumentRoleWhereInput
+  orderBy?: Prisma.DocumentRoleOrderByWithRelationInput | Prisma.DocumentRoleOrderByWithRelationInput[]
+  cursor?: Prisma.DocumentRoleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DocumentRoleScalarFieldEnum | Prisma.DocumentRoleScalarFieldEnum[]
 }
 
 /**

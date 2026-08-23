@@ -61,7 +61,12 @@ export const ModelName = {
   MediaAsset: 'MediaAsset',
   ReadingPlatform: 'ReadingPlatform',
   Document: 'Document',
-  DocumentPage: 'DocumentPage'
+  DocumentPage: 'DocumentPage',
+  BlogPageState: 'BlogPageState',
+  DocsPageState: 'DocsPageState',
+  DocsSidebarState: 'DocsSidebarState',
+  PostRole: 'PostRole',
+  DocumentRole: 'DocumentRole'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -217,6 +222,61 @@ export const DocumentPageScalarFieldEnum = {
 } as const
 
 export type DocumentPageScalarFieldEnum = (typeof DocumentPageScalarFieldEnum)[keyof typeof DocumentPageScalarFieldEnum]
+
+
+export const BlogPageStateScalarFieldEnum = {
+  blogId: 'blogId',
+  yjsState: 'yjsState',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogPageStateScalarFieldEnum = (typeof BlogPageStateScalarFieldEnum)[keyof typeof BlogPageStateScalarFieldEnum]
+
+
+export const DocsPageStateScalarFieldEnum = {
+  docsId: 'docsId',
+  pageId: 'pageId',
+  yjsState: 'yjsState',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DocsPageStateScalarFieldEnum = (typeof DocsPageStateScalarFieldEnum)[keyof typeof DocsPageStateScalarFieldEnum]
+
+
+export const DocsSidebarStateScalarFieldEnum = {
+  docsId: 'docsId',
+  yjsState: 'yjsState',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DocsSidebarStateScalarFieldEnum = (typeof DocsSidebarStateScalarFieldEnum)[keyof typeof DocsSidebarStateScalarFieldEnum]
+
+
+export const PostRoleScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostRoleScalarFieldEnum = (typeof PostRoleScalarFieldEnum)[keyof typeof PostRoleScalarFieldEnum]
+
+
+export const DocumentRoleScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DocumentRoleScalarFieldEnum = (typeof DocumentRoleScalarFieldEnum)[keyof typeof DocumentRoleScalarFieldEnum]
 
 
 export const SortOrder = {

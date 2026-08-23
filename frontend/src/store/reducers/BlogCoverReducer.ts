@@ -14,7 +14,7 @@ type ApiPost = {
 };
 
 export const toBlogHomeCard = (post: ApiPost) => {
-    const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+    const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
     return {
         id: post.id,
         title: post.title,
@@ -31,7 +31,8 @@ export const getCoverBlog = createAsyncThunk<
     { cursor: UUID | null; mode: "init" | "more" }
 >("/blog", async ({ cursor }, { rejectWithValue }) => {
     try {
-        const URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/posts`;
+        const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+        const URL = `${apiVersion}/posts`;
 
         const res = await api.get(URL, {
             withCredentials: true,

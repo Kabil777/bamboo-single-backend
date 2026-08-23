@@ -111,11 +111,11 @@ export function SignUpForm({
                     <Button
                       variant="outline"
                       className="w-full"
-                      onClick={() =>
-                        router.push(
-                          `${process.env.NEXT_PUBLIC_AUTH_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/auth/login/google`,
-                        )
-                      }
+                      onClick={() => {
+                        const authUrl = (process.env.NEXT_PUBLIC_AUTH_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+                        const apiVersion = process.env.NEXT_PUBLIC_API_VERSION || "/api/v1";
+                        window.location.href = `${authUrl}${apiVersion}/auth/login/google`;
+                      }}
                     >
                       <FcGoogle />
                       <span className="ml-2">Continue with Google</span>

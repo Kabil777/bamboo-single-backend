@@ -209,6 +209,7 @@ export type DocumentWhereInput = {
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   media?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   pages?: Prisma.DocumentPageListRelationFilter
+  roles?: Prisma.DocumentRoleListRelationFilter
 }
 
 export type DocumentOrderByWithRelationInput = {
@@ -223,6 +224,7 @@ export type DocumentOrderByWithRelationInput = {
   author?: Prisma.UserOrderByWithRelationInput
   media?: Prisma.MediaAssetOrderByWithRelationInput
   pages?: Prisma.DocumentPageOrderByRelationAggregateInput
+  roles?: Prisma.DocumentRoleOrderByRelationAggregateInput
 }
 
 export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -240,6 +242,7 @@ export type DocumentWhereUniqueInput = Prisma.AtLeast<{
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   media?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   pages?: Prisma.DocumentPageListRelationFilter
+  roles?: Prisma.DocumentRoleListRelationFilter
 }, "id">
 
 export type DocumentOrderByWithAggregationInput = {
@@ -280,6 +283,7 @@ export type DocumentCreateInput = {
   author: Prisma.UserCreateNestedOneWithoutDocumentsInput
   media?: Prisma.MediaAssetCreateNestedOneWithoutDocumentsInput
   pages?: Prisma.DocumentPageCreateNestedManyWithoutDocumentInput
+  roles?: Prisma.DocumentRoleCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateInput = {
@@ -292,6 +296,7 @@ export type DocumentUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pages?: Prisma.DocumentPageUncheckedCreateNestedManyWithoutDocumentInput
+  roles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUpdateInput = {
@@ -304,6 +309,7 @@ export type DocumentUpdateInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutDocumentsNestedInput
   media?: Prisma.MediaAssetUpdateOneWithoutDocumentsNestedInput
   pages?: Prisma.DocumentPageUpdateManyWithoutDocumentNestedInput
+  roles?: Prisma.DocumentRoleUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateInput = {
@@ -316,6 +322,7 @@ export type DocumentUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pages?: Prisma.DocumentPageUncheckedUpdateManyWithoutDocumentNestedInput
+  roles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateManyInput = {
@@ -495,6 +502,20 @@ export type DocumentUpdateOneRequiredWithoutPagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentUpdateToOneWithWhereWithoutPagesInput, Prisma.DocumentUpdateWithoutPagesInput>, Prisma.DocumentUncheckedUpdateWithoutPagesInput>
 }
 
+export type DocumentCreateNestedOneWithoutRolesInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutRolesInput, Prisma.DocumentUncheckedCreateWithoutRolesInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutRolesInput
+  connect?: Prisma.DocumentWhereUniqueInput
+}
+
+export type DocumentUpdateOneRequiredWithoutRolesNestedInput = {
+  create?: Prisma.XOR<Prisma.DocumentCreateWithoutRolesInput, Prisma.DocumentUncheckedCreateWithoutRolesInput>
+  connectOrCreate?: Prisma.DocumentCreateOrConnectWithoutRolesInput
+  upsert?: Prisma.DocumentUpsertWithoutRolesInput
+  connect?: Prisma.DocumentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DocumentUpdateToOneWithWhereWithoutRolesInput, Prisma.DocumentUpdateWithoutRolesInput>, Prisma.DocumentUncheckedUpdateWithoutRolesInput>
+}
+
 export type DocumentCreateWithoutAuthorInput = {
   id?: string
   title: string
@@ -504,6 +525,7 @@ export type DocumentCreateWithoutAuthorInput = {
   updatedAt?: Date | string
   media?: Prisma.MediaAssetCreateNestedOneWithoutDocumentsInput
   pages?: Prisma.DocumentPageCreateNestedManyWithoutDocumentInput
+  roles?: Prisma.DocumentRoleCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutAuthorInput = {
@@ -515,6 +537,7 @@ export type DocumentUncheckedCreateWithoutAuthorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pages?: Prisma.DocumentPageUncheckedCreateNestedManyWithoutDocumentInput
+  roles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutAuthorInput = {
@@ -566,6 +589,7 @@ export type DocumentCreateWithoutMediaInput = {
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutDocumentsInput
   pages?: Prisma.DocumentPageCreateNestedManyWithoutDocumentInput
+  roles?: Prisma.DocumentRoleCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutMediaInput = {
@@ -577,6 +601,7 @@ export type DocumentUncheckedCreateWithoutMediaInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   pages?: Prisma.DocumentPageUncheckedCreateNestedManyWithoutDocumentInput
+  roles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutMediaInput = {
@@ -614,6 +639,7 @@ export type DocumentCreateWithoutPagesInput = {
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutDocumentsInput
   media?: Prisma.MediaAssetCreateNestedOneWithoutDocumentsInput
+  roles?: Prisma.DocumentRoleCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentUncheckedCreateWithoutPagesInput = {
@@ -625,6 +651,7 @@ export type DocumentUncheckedCreateWithoutPagesInput = {
   mediaId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  roles?: Prisma.DocumentRoleUncheckedCreateNestedManyWithoutDocumentInput
 }
 
 export type DocumentCreateOrConnectWithoutPagesInput = {
@@ -652,6 +679,7 @@ export type DocumentUpdateWithoutPagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutDocumentsNestedInput
   media?: Prisma.MediaAssetUpdateOneWithoutDocumentsNestedInput
+  roles?: Prisma.DocumentRoleUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutPagesInput = {
@@ -663,6 +691,71 @@ export type DocumentUncheckedUpdateWithoutPagesInput = {
   mediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentCreateWithoutRolesInput = {
+  id?: string
+  title: string
+  content: string
+  visibility?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutDocumentsInput
+  media?: Prisma.MediaAssetCreateNestedOneWithoutDocumentsInput
+  pages?: Prisma.DocumentPageCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentUncheckedCreateWithoutRolesInput = {
+  id?: string
+  title: string
+  content: string
+  visibility?: string
+  authorId: string
+  mediaId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  pages?: Prisma.DocumentPageUncheckedCreateNestedManyWithoutDocumentInput
+}
+
+export type DocumentCreateOrConnectWithoutRolesInput = {
+  where: Prisma.DocumentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutRolesInput, Prisma.DocumentUncheckedCreateWithoutRolesInput>
+}
+
+export type DocumentUpsertWithoutRolesInput = {
+  update: Prisma.XOR<Prisma.DocumentUpdateWithoutRolesInput, Prisma.DocumentUncheckedUpdateWithoutRolesInput>
+  create: Prisma.XOR<Prisma.DocumentCreateWithoutRolesInput, Prisma.DocumentUncheckedCreateWithoutRolesInput>
+  where?: Prisma.DocumentWhereInput
+}
+
+export type DocumentUpdateToOneWithWhereWithoutRolesInput = {
+  where?: Prisma.DocumentWhereInput
+  data: Prisma.XOR<Prisma.DocumentUpdateWithoutRolesInput, Prisma.DocumentUncheckedUpdateWithoutRolesInput>
+}
+
+export type DocumentUpdateWithoutRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutDocumentsNestedInput
+  media?: Prisma.MediaAssetUpdateOneWithoutDocumentsNestedInput
+  pages?: Prisma.DocumentPageUpdateManyWithoutDocumentNestedInput
+}
+
+export type DocumentUncheckedUpdateWithoutRolesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pages?: Prisma.DocumentPageUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentCreateManyAuthorInput = {
@@ -684,6 +777,7 @@ export type DocumentUpdateWithoutAuthorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaAssetUpdateOneWithoutDocumentsNestedInput
   pages?: Prisma.DocumentPageUpdateManyWithoutDocumentNestedInput
+  roles?: Prisma.DocumentRoleUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutAuthorInput = {
@@ -695,6 +789,7 @@ export type DocumentUncheckedUpdateWithoutAuthorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pages?: Prisma.DocumentPageUncheckedUpdateManyWithoutDocumentNestedInput
+  roles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateManyWithoutAuthorInput = {
@@ -726,6 +821,7 @@ export type DocumentUpdateWithoutMediaInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutDocumentsNestedInput
   pages?: Prisma.DocumentPageUpdateManyWithoutDocumentNestedInput
+  roles?: Prisma.DocumentRoleUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateWithoutMediaInput = {
@@ -737,6 +833,7 @@ export type DocumentUncheckedUpdateWithoutMediaInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pages?: Prisma.DocumentPageUncheckedUpdateManyWithoutDocumentNestedInput
+  roles?: Prisma.DocumentRoleUncheckedUpdateManyWithoutDocumentNestedInput
 }
 
 export type DocumentUncheckedUpdateManyWithoutMediaInput = {
@@ -756,10 +853,12 @@ export type DocumentUncheckedUpdateManyWithoutMediaInput = {
 
 export type DocumentCountOutputType = {
   pages: number
+  roles: number
 }
 
 export type DocumentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pages?: boolean | DocumentCountOutputTypeCountPagesArgs
+  roles?: boolean | DocumentCountOutputTypeCountRolesArgs
 }
 
 /**
@@ -779,6 +878,13 @@ export type DocumentCountOutputTypeCountPagesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.DocumentPageWhereInput
 }
 
+/**
+ * DocumentCountOutputType without action
+ */
+export type DocumentCountOutputTypeCountRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DocumentRoleWhereInput
+}
+
 
 export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -792,6 +898,7 @@ export type DocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   media?: boolean | Prisma.Document$mediaArgs<ExtArgs>
   pages?: boolean | Prisma.Document$pagesArgs<ExtArgs>
+  roles?: boolean | Prisma.Document$rolesArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["document"]>
 
@@ -837,6 +944,7 @@ export type DocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   media?: boolean | Prisma.Document$mediaArgs<ExtArgs>
   pages?: boolean | Prisma.Document$pagesArgs<ExtArgs>
+  roles?: boolean | Prisma.Document$rolesArgs<ExtArgs>
   _count?: boolean | Prisma.DocumentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DocumentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -854,6 +962,7 @@ export type $DocumentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     author: Prisma.$UserPayload<ExtArgs>
     media: Prisma.$MediaAssetPayload<ExtArgs> | null
     pages: Prisma.$DocumentPagePayload<ExtArgs>[]
+    roles: Prisma.$DocumentRolePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1261,6 +1370,7 @@ export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends runtime
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   media<T extends Prisma.Document$mediaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$mediaArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   pages<T extends Prisma.Document$pagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  roles<T extends Prisma.Document$rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Document$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1739,6 +1849,30 @@ export type Document$pagesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.DocumentPageScalarFieldEnum | Prisma.DocumentPageScalarFieldEnum[]
+}
+
+/**
+ * Document.roles
+ */
+export type Document$rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DocumentRole
+   */
+  select?: Prisma.DocumentRoleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DocumentRole
+   */
+  omit?: Prisma.DocumentRoleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentRoleInclude<ExtArgs> | null
+  where?: Prisma.DocumentRoleWhereInput
+  orderBy?: Prisma.DocumentRoleOrderByWithRelationInput | Prisma.DocumentRoleOrderByWithRelationInput[]
+  cursor?: Prisma.DocumentRoleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DocumentRoleScalarFieldEnum | Prisma.DocumentRoleScalarFieldEnum[]
 }
 
 /**

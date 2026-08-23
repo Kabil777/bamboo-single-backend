@@ -1,6 +1,7 @@
 "use client"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/shadcnUI/collapsible"
 import {
+  SidebarProvider,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
@@ -18,10 +19,20 @@ type TocItem = {
   items?: TocItem[]
 }
 
-export function ArticleTocRail({ toc }: { toc: TocItem[] }) {
+export function ArticleTocRail({
+  toc,
+  onItemClick,
+  getHeadingElement,
+  scrollContainerSelector,
+}: {
+  toc: TocItem[]
+  onItemClick?: (id: string, e: React.MouseEvent) => void
+  getHeadingElement?: (id: string) => HTMLElement | null
+  scrollContainerSelector?: string
+}) {
   const [open, setOpen] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  const visibleItems = toc.slice(0, 18)
+  const visibleItems = toc.slice(0, 20)
 
   const keepOpen = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -41,7 +52,7 @@ export function ArticleTocRail({ toc }: { toc: TocItem[] }) {
 
   return (
     <aside
-      className="group/tocrail fixed right-5 top-1/2 z-[100] hidden w-9 -translate-y-1/2 overflow-visible lg:block"
+      className="group/tocrail fixed right-4 xl:right-6 top-1/2 z-[100] hidden w-10 -translate-y-1/2 overflow-visible lg:block"
       onMouseEnter={keepOpen}
       onMouseLeave={closeAfterPointerLeaves}
       onFocusCapture={keepOpen}
@@ -54,12 +65,18 @@ export function ArticleTocRail({ toc }: { toc: TocItem[] }) {
         aria-label="Open table of contents"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="flex w-full cursor-pointer flex-col items-end gap-1.5 rounded-md py-2 outline-none transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="flex w-full cursor-pointer flex-col items-end gap-1.5 rounded-lg py-3 px-1 outline-none transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-ring"
       >
         {visibleItems.map((item) => (
           <span
             key={item.id}
-            className={`h-px rounded-full bg-foreground/45 transition-colors group-hover/tocrail:bg-foreground/70 ${item.depth <= 1 ? "w-7" : item.depth === 2 ? "w-5" : "w-3"}`}
+            className={`h-[1.5px] rounded-full transition-all duration-200 ${
+              item.depth <= 1
+                ? "w-6 bg-foreground/45 group-hover/tocrail:bg-foreground/75"
+                : item.depth === 2
+                ? "w-4 bg-foreground/35 group-hover/tocrail:bg-foreground/60"
+                : "w-2.5 bg-foreground/25 group-hover/tocrail:bg-foreground/45"
+            }`}
           />
         ))}
       </button>
@@ -67,15 +84,19 @@ export function ArticleTocRail({ toc }: { toc: TocItem[] }) {
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
-            initial={{ opacity: 0, x: 8, scale: 0.98 }}
+            initial={{ opacity: 0, x: 10, scale: 0.96 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 8, scale: 0.98 }}
+            exit={{ opacity: 0, x: 10, scale: 0.96 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute right-full top-1/2 z-[101] mr-3 w-72 -translate-y-1/2 origin-right rounded-xl border border-border/70 bg-white p-4 backdrop-blur dark:bg-popover"
+            className="absolute right-full top-1/2 z-[101] mr-3.5 w-80 -translate-y-1/2 origin-right rounded-2xl border border-border/60 bg-white/95 p-4.5 shadow-2xl backdrop-blur-xl dark:bg-popover/95 dark:border-border/40"
           >
-            <h2 className="mb-3 text-sm font-bold tracking-tight text-foreground">Table of contents</h2>
-            <div className="custom-scroll max-h-[calc(100vh-10rem)] overflow-y-auto pr-1">
-              <ArticleTableContent toc={toc} />
+            <div className="custom-scroll max-h-[calc(100vh-12rem)] overflow-y-auto px-1 pr-1.5">
+              <ArticleTableContent
+                toc={toc}
+                onItemClick={onItemClick}
+                getHeadingElement={getHeadingElement}
+                scrollContainerSelector={scrollContainerSelector}
+              />
             </div>
           </motion.div>
         )}
@@ -109,10 +130,12 @@ function TocItemNode({
   item,
   activeId,
   depth = 0,
+  onItemClick,
 }: {
   item: TocItem
   activeId: string | null
   depth?: number
+  onItemClick?: (id: string, e: React.MouseEvent) => void
 }) {
   const hasChildren = item.items && item.items.length > 0
   const [open, setOpen] = useState<boolean>(true)
@@ -126,40 +149,61 @@ function TocItemNode({
       className="group/collapsible min-w-0 w-full"
     >
       <div>
-        <SidebarMenuItem className="!w-full min-w-0 !list-none">
-          <div
-            className="group/tocitem relative flex w-full min-w-0 items-start transition-colors"
-          >
-            <SidebarMenuButton asChild className="hover:bg-transparent focus:!bg-transparent data-[active=true]:bg-transparent active:bg-transparent min-w-0 w-full !h-auto">
-              <span className="!gap-0 flex min-w-0 w-full items-start !px-0 !py-1.5 pr-1">
-                <span aria-hidden="true" className={`mt-1.5 mr-2 grid size-3 shrink-0 grid-cols-2 gap-px p-0.5 transition-opacity ${isActive ? "opacity-100" : "opacity-0"}`}>
-                  {Array.from({ length: 4 }, (_, index) => <span key={index} className="rounded-[1px] bg-foreground" />)}
-                </span>
+        <SidebarMenuItem className="!w-full min-w-0 !list-none py-0.5">
+          <div className="group/tocitem relative flex w-full min-w-0 items-start transition-colors">
+            <SidebarMenuButton asChild className="hover:bg-muted/40 focus:!bg-transparent data-[active=true]:bg-transparent active:bg-transparent min-w-0 w-full !h-auto rounded-md px-1.5 py-1">
+              <span className="!gap-1.5 flex min-w-0 w-full items-start">
+                {/* 4-dot indicator for active items */}
+                {isActive ? (
+                  <span
+                    aria-hidden="true"
+                    className="mt-1.5 grid size-3 shrink-0 grid-cols-2 gap-[1.5px] p-[0.5px]"
+                  >
+                    <span className="rounded-[0.5px] bg-foreground" />
+                    <span className="rounded-[0.5px] bg-foreground" />
+                    <span className="rounded-[0.5px] bg-foreground" />
+                    <span className="rounded-[0.5px] bg-foreground" />
+                  </span>
+                ) : (
+                  <span className="w-0 shrink-0" />
+                )}
+
                 <Link
                   href={`#${item.id}`}
+                  onClick={onItemClick ? (e) => onItemClick(item.id, e) : undefined}
                   className={`
                     block w-full min-w-0 flex-1 text-left whitespace-normal break-words leading-snug
-                    transition-all duration-200 ease-out
-                    ${depth === 0 ? "!text-[15px] font-medium" : "!text-sm font-normal"}
-                    ${isActive
-                      ? "text-foreground"
-                      : "text-foreground/80 hover:text-foreground"
+                    transition-all duration-150 ease-out
+                    ${
+                      depth === 0
+                        ? "!text-[13.5px] font-semibold"
+                        : depth === 1
+                        ? "!text-[13px] font-medium"
+                        : "!text-[12.5px] font-normal"
+                    }
+                    ${
+                      isActive
+                        ? "text-foreground font-semibold"
+                        : depth === 0
+                        ? "text-foreground/90 hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
                     }
                   `}
                   title={item.value}
                 >
                   {item.value}
                 </Link>
+
                 {hasChildren && (
                   <CollapsibleTrigger asChild>
                     <button
                       type="button"
-                      className="mt-0.5 ml-1 rounded-md p-1 flex-shrink-0 hover:bg-muted/50 transition-colors duration-150"
+                      className="mt-0.5 ml-auto rounded p-0.5 flex-shrink-0 text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-colors duration-150"
                       aria-label={open ? "Collapse" : "Expand"}
                     >
                       <ChevronRight
-                        size={14}
-                        className={`text-muted-foreground/50 transition-transform duration-200 ${open ? "rotate-90" : ""}`}
+                        size={13}
+                        className={`transition-transform duration-200 ${open ? "rotate-90" : ""}`}
                       />
                     </button>
                   </CollapsibleTrigger>
@@ -178,7 +222,7 @@ function TocItemNode({
                   closed: { height: 0, opacity: 0 },
                 }}
                 transition={{
-                  duration: 0.25,
+                  duration: 0.2,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
                 style={{
@@ -187,9 +231,9 @@ function TocItemNode({
                   willChange: "height",
                 }}
               >
-                <SidebarMenuSub className="mr-0 min-w-0 overflow-hidden !ml-4 !border-l-0 !pl-0 pr-0">
+                <SidebarMenuSub className="mr-0 min-w-0 overflow-hidden !ml-3.5 !border-l-0 !pl-0 pr-0">
                   {item.items!.map((child) => (
-                    <TocItemNode key={child.id} item={child} activeId={activeId} depth={depth + 1} />
+                    <TocItemNode key={child.id} item={child} activeId={activeId} depth={depth + 1} onItemClick={onItemClick} />
                   ))}
                 </SidebarMenuSub>
               </motion.div>
@@ -201,7 +245,17 @@ function TocItemNode({
   )
 }
 
-export const ArticleTableContent = ({ toc }: { toc: TocItem[] }) => {
+export const ArticleTableContent = ({
+  toc,
+  onItemClick,
+  getHeadingElement,
+  scrollContainerSelector,
+}: {
+  toc: TocItem[]
+  onItemClick?: (id: string, e: React.MouseEvent) => void
+  getHeadingElement?: (id: string) => HTMLElement | null
+  scrollContainerSelector?: string
+}) => {
   const tocTree = buildTocTree(toc)
   const [activeId, setActiveId] = useState<string | null>(null)
 
@@ -209,22 +263,29 @@ export const ArticleTableContent = ({ toc }: { toc: TocItem[] }) => {
     if (toc.length === 0) return
 
     const headingIds = toc.map((t) => t.id)
-
     const THRESHOLD = 80 // px: navbar (~80px) + comfortable read offset
-
     let rafId: number
+
+    const scrollContainer = scrollContainerSelector ? document.querySelector(scrollContainerSelector) : null
 
     const updateActive = () => {
       const elements = headingIds
-        .map((id) => document.getElementById(id))
+        .map((id) => getHeadingElement ? getHeadingElement(id) : document.getElementById(id))
         .filter(Boolean) as HTMLElement[]
 
-      const vh = window.innerHeight
+      let vh = window.innerHeight
+      let offsetTop = 0
+      if (scrollContainer) {
+        const rect = scrollContainer.getBoundingClientRect()
+        vh = rect.height
+        offsetTop = rect.top
+      }
 
       // Pick exactly one current section: the last heading above threshold.
       let currentSection: string | null = null
       for (const el of elements) {
-        if (el.getBoundingClientRect().top <= THRESHOLD) {
+        const top = el.getBoundingClientRect().top - offsetTop
+        if (top <= THRESHOLD) {
           currentSection = el.id
         } else {
           break
@@ -233,7 +294,7 @@ export const ArticleTableContent = ({ toc }: { toc: TocItem[] }) => {
 
       // If above all headings, use the first visible heading.
       if (!currentSection && elements.length > 0) {
-        const firstTop = elements[0].getBoundingClientRect().top
+        const firstTop = elements[0].getBoundingClientRect().top - offsetTop
         if (firstTop < vh * 0.9) {
           currentSection = elements[0].id
         }
@@ -247,22 +308,25 @@ export const ArticleTableContent = ({ toc }: { toc: TocItem[] }) => {
       rafId = requestAnimationFrame(updateActive)
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true })
+    const targetContainer = scrollContainer || window
+    targetContainer.addEventListener("scroll", onScroll, { passive: true })
     updateActive() // initial call on mount
 
     return () => {
-      window.removeEventListener("scroll", onScroll)
+      targetContainer.removeEventListener("scroll", onScroll)
       cancelAnimationFrame(rafId)
     }
-  }, [toc])
+  }, [toc, getHeadingElement, scrollContainerSelector])
 
   return (
-    <div className="space-y-0.5 min-w-0 overflow-hidden">
-      <SidebarMenu className="min-w-0 gap-0">
-        {tocTree.map((item) => (
-          <TocItemNode key={item.id} item={item} activeId={activeId} />
-        ))}
-      </SidebarMenu>
-    </div>
+    <SidebarProvider className="min-h-0 items-start w-full bg-transparent p-0 m-0 [&>div]:bg-transparent [&>div]:p-0 [&>div]:m-0">
+      <div className="space-y-0.5 min-w-0 w-full overflow-hidden">
+        <SidebarMenu className="min-w-0 gap-0 w-full">
+          {tocTree.map((item) => (
+            <TocItemNode key={item.id} item={item} activeId={activeId} onItemClick={onItemClick} />
+          ))}
+        </SidebarMenu>
+      </div>
+    </SidebarProvider>
   )
 }

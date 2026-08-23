@@ -3,6 +3,7 @@ import api from "@/api/axios";
 
 interface AuthState {
 	user: {
+		id?: string;
 		name: string;
 		handle: string;
 		email: string;
@@ -59,10 +60,11 @@ const userDetailsSlice = createSlice({
 				"User";
 
 			s.user = {
+				id: user.id,
 				name: normalizedName,
 				handle: user.handle ?? "",
 				email: user.email,
-				profileImg: user.pictureUrl ?? "",
+				profileImg: user.pictureUrl ?? user.profileImg ?? "",
 				role: user.role ?? "USER",
 			};
 			s.status = "authorized";
@@ -78,10 +80,11 @@ const userDetailsSlice = createSlice({
 					"User";
 
 				s.user = {
+					id: a.payload.id,
 					name: normalizedName,
 					handle: a.payload.handle ?? "",
 					email: a.payload.email,
-					profileImg: a.payload.pictureUrl ?? "",
+					profileImg: a.payload.pictureUrl ?? a.payload.profileImg ?? "",
 					role: a.payload.role ?? "USER",
 				};
 				s.status = "authorized";

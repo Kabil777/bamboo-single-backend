@@ -265,21 +265,6 @@ export default function Home() {
                                                             )}
                                                             <BlogCard
                                                                 {...blog}
-                                                                authorName={
-                                                                    blog.author
-                                                                        ?.name ??
-                                                                    null
-                                                                }
-                                                                authorHandle={
-                                                                    blog.author
-                                                                        ?.handle ??
-                                                                    null
-                                                                }
-                                                                authorAvatarUrl={
-                                                                    blog.author
-                                                                        ?.avatarUrl ??
-                                                                    null
-                                                                }
                                                                 isOwner={false}
                                                             />
                                                         </div>

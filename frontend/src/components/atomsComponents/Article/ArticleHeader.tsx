@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Hash, Clock, CalendarDays, MessageCircle } from "lucide-react";
 import NextImage from "next/image";
-import Link from "next/link";
 import { ProfileTag } from "@/components/atomsComponents";
 import CommentsDrawer from "../commentsDrawer";
 import { Button } from "@/components/shadcnUI/button";
@@ -16,7 +15,6 @@ interface ArticleHeaderProps {
 	readingTime: number;
 	createdAt: string;
 	author?: {
-		id?: string;
 		handle?: string;
 		name?: string;
 		avatarUrl?: string | null;
@@ -25,7 +23,6 @@ interface ArticleHeaderProps {
 	idBlog: string;
 	contentType: "blog" | "docs";
 	isOverview?: boolean;
-	ownerEditHref?: string;
 }
 
 const fadeUp = {
@@ -57,7 +54,6 @@ export function ArticleHeader({
 	idBlog,
 	contentType,
 	isOverview = true,
-	ownerEditHref,
 }: ArticleHeaderProps) {
 	return (
 		<>
@@ -90,7 +86,7 @@ export function ArticleHeader({
 			<motion.div variants={fadeUp}>
 				<ProfileTag
 					idBlog={idBlog}
-					profileId={author?.id}
+					profileId={author?.handle}
 					authorName={author?.name}
 					authorAvatarUrl={author?.avatarUrl}
 					createdAt={createdAt}
@@ -132,22 +128,11 @@ export function ArticleHeader({
 					{formatDate(createdAt)}
 				</span>
 				<CommentsDrawer contentId={idBlog} contentType={contentType}>
-					<Button
-						variant="ghost"
-						className="h-auto px-1.5 py-0 text-[11px] sm:text-xs gap-1.5 text-muted-foreground/80 hover:text-foreground hover:bg-transparent"
-					>
+					<Button variant="ghost" className="!py-0 !px-2 text-xs gap-1" >
 						<MessageCircle size={14} />
 						Comments
 					</Button>
 				</CommentsDrawer>
-				{ownerEditHref && (
-					<Link
-						href={ownerEditHref}
-						className="ml-0 inline-flex h-7 items-center rounded-md px-2 text-[11px] font-medium text-primary underline-offset-4 transition-colors hover:bg-primary/10 hover:text-primary hover:underline sm:ml-auto sm:text-xs"
-					>
-						Edit post
-					</Link>
-				)}
 			</motion.div>
 
 			{/* ── Description ── */}

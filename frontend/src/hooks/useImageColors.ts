@@ -94,8 +94,9 @@ export function useImageColors(
 				console.log("Extracting colors from:", imageUrl);
 
 				// Dynamically import ColorThief to avoid SSR issues
-				const ColorThief = (await import("colorthief")).default;
-				const colorThief = new ColorThief();
+				const ColorThiefModule = await import("colorthief");
+				const ColorThiefClass = (ColorThiefModule.default || ColorThiefModule) as any;
+				const colorThief = new ColorThiefClass();
 
 				// Use proxy API to avoid CORS issues
 				const proxyUrl = `/api/extract-colors?url=${encodeURIComponent(imageUrl)}`;

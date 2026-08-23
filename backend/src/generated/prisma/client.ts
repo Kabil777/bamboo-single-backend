@@ -96,3 +96,28 @@ export type Document = Prisma.DocumentModel
  * 
  */
 export type DocumentPage = Prisma.DocumentPageModel
+/**
+ * Model BlogPageState
+ * 
+ */
+export type BlogPageState = Prisma.BlogPageStateModel
+/**
+ * Model DocsPageState
+ * 
+ */
+export type DocsPageState = Prisma.DocsPageStateModel
+/**
+ * Model DocsSidebarState
+ * 
+ */
+export type DocsSidebarState = Prisma.DocsSidebarStateModel
+/**
+ * Model PostRole
+ * 
+ */
+export type PostRole = Prisma.PostRoleModel
+/**
+ * Model DocumentRole
+ * 
+ */
+export type DocumentRole = Prisma.DocumentRoleModel

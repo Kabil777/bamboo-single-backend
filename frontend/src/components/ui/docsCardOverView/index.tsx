@@ -2,15 +2,8 @@
 import { useState } from "react";
 import { Button } from "@/components/shadcnUI/button";
 import { DocsCard } from "@/components/atomsComponents";
+import type { DocsHomeCard } from "@/types/docs/docs-base";
 import Link from "next/link";
-
-type DocsHomeCard = {
-    id: string;
-    title: string;
-    coverUrl: string;
-    description: string;
-    createdAt: string;
-};
 
 interface DocsHomeProps {
     docs: DocsHomeCard[];

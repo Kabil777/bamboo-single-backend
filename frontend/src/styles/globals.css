@@ -1,6 +1,6 @@
 @import "tailwindcss";
+@import "./typeset.css";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
 
 @import "./_variables.scss";
@@ -116,6 +116,15 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.typeset-docs {
+  --typeset-font-body: var(--font-geist);
+  --typeset-font-heading: var(--font-geist);
+  --typeset-font-mono: var(--font-geist-mono);
+  --typeset-size: 15px;
+  --typeset-leading: 1.75;
+  --typeset-flow: 1.25em;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -137,11 +146,22 @@
   body {
     scroll-behavior: smooth;
     @apply bg-background text-foreground;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sidebar-ring) transparent;
   }
 
   ::-webkit-scrollbar {
-    display: none;
+    display: block;
+    width: 0.45rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--sidebar-ring);
+    border-radius: 5px;
   }
 
   ::selection {
@@ -173,5 +193,4 @@
     background-color: black !important;
     color: white !important;
   }
-
 }

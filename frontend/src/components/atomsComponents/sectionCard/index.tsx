@@ -218,7 +218,8 @@ export function SectionCards({ viewingHandle }: { viewingHandle?: string }) {
 							data = await getFollowingByHandle(handle);
 						}
 						// If the API returns { status, items } or just an array
-						setUsers(Array.isArray(data) ? data : data?.items || data?.data || []);
+						const safeList = Array.isArray(data) ? data : (data as any)?.items || (data as any)?.data || [];
+						setUsers(safeList);
 					} catch (error) {
 						toast.error("Failed to load list");
 					} finally {

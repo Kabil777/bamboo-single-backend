@@ -7,7 +7,7 @@ export const requestInterceptor = async (
 ) => {
     await authResolved;
 
-    const token = store.getState().userReducer.accessToken;
+    const token = (store.getState().userReducer as any)?.accessToken;
     if (token) {
         config.headers = config.headers ?? {};
         config.headers.Authorization = `Bearer ${token}`;

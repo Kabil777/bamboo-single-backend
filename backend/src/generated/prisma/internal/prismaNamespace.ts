@@ -407,7 +407,12 @@ export const ModelName = {
   MediaAsset: 'MediaAsset',
   ReadingPlatform: 'ReadingPlatform',
   Document: 'Document',
-  DocumentPage: 'DocumentPage'
+  DocumentPage: 'DocumentPage',
+  BlogPageState: 'BlogPageState',
+  DocsPageState: 'DocsPageState',
+  DocsSidebarState: 'DocsSidebarState',
+  PostRole: 'PostRole',
+  DocumentRole: 'DocumentRole'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -423,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "tag" | "refreshToken" | "post" | "postLike" | "postBookmark" | "newsletter" | "mediaAsset" | "readingPlatform" | "document" | "documentPage"
+    modelProps: "user" | "tag" | "refreshToken" | "post" | "postLike" | "postBookmark" | "newsletter" | "mediaAsset" | "readingPlatform" | "document" | "documentPage" | "blogPageState" | "docsPageState" | "docsSidebarState" | "postRole" | "documentRole"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1241,6 +1246,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    BlogPageState: {
+      payload: Prisma.$BlogPageStatePayload<ExtArgs>
+      fields: Prisma.BlogPageStateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BlogPageStateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BlogPageStateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>
+        }
+        findFirst: {
+          args: Prisma.BlogPageStateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BlogPageStateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>
+        }
+        findMany: {
+          args: Prisma.BlogPageStateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>[]
+        }
+        create: {
+          args: Prisma.BlogPageStateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>
+        }
+        createMany: {
+          args: Prisma.BlogPageStateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BlogPageStateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>[]
+        }
+        delete: {
+          args: Prisma.BlogPageStateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>
+        }
+        update: {
+          args: Prisma.BlogPageStateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>
+        }
+        deleteMany: {
+          args: Prisma.BlogPageStateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BlogPageStateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BlogPageStateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>[]
+        }
+        upsert: {
+          args: Prisma.BlogPageStateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPageStatePayload>
+        }
+        aggregate: {
+          args: Prisma.BlogPageStateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBlogPageState>
+        }
+        groupBy: {
+          args: Prisma.BlogPageStateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogPageStateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BlogPageStateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogPageStateCountAggregateOutputType> | number
+        }
+      }
+    }
+    DocsPageState: {
+      payload: Prisma.$DocsPageStatePayload<ExtArgs>
+      fields: Prisma.DocsPageStateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DocsPageStateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DocsPageStateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>
+        }
+        findFirst: {
+          args: Prisma.DocsPageStateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DocsPageStateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>
+        }
+        findMany: {
+          args: Prisma.DocsPageStateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>[]
+        }
+        create: {
+          args: Prisma.DocsPageStateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>
+        }
+        createMany: {
+          args: Prisma.DocsPageStateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DocsPageStateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>[]
+        }
+        delete: {
+          args: Prisma.DocsPageStateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>
+        }
+        update: {
+          args: Prisma.DocsPageStateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>
+        }
+        deleteMany: {
+          args: Prisma.DocsPageStateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DocsPageStateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DocsPageStateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>[]
+        }
+        upsert: {
+          args: Prisma.DocsPageStateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsPageStatePayload>
+        }
+        aggregate: {
+          args: Prisma.DocsPageStateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDocsPageState>
+        }
+        groupBy: {
+          args: Prisma.DocsPageStateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocsPageStateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DocsPageStateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocsPageStateCountAggregateOutputType> | number
+        }
+      }
+    }
+    DocsSidebarState: {
+      payload: Prisma.$DocsSidebarStatePayload<ExtArgs>
+      fields: Prisma.DocsSidebarStateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DocsSidebarStateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DocsSidebarStateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>
+        }
+        findFirst: {
+          args: Prisma.DocsSidebarStateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DocsSidebarStateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>
+        }
+        findMany: {
+          args: Prisma.DocsSidebarStateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>[]
+        }
+        create: {
+          args: Prisma.DocsSidebarStateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>
+        }
+        createMany: {
+          args: Prisma.DocsSidebarStateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DocsSidebarStateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>[]
+        }
+        delete: {
+          args: Prisma.DocsSidebarStateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>
+        }
+        update: {
+          args: Prisma.DocsSidebarStateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>
+        }
+        deleteMany: {
+          args: Prisma.DocsSidebarStateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DocsSidebarStateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DocsSidebarStateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>[]
+        }
+        upsert: {
+          args: Prisma.DocsSidebarStateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocsSidebarStatePayload>
+        }
+        aggregate: {
+          args: Prisma.DocsSidebarStateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDocsSidebarState>
+        }
+        groupBy: {
+          args: Prisma.DocsSidebarStateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocsSidebarStateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DocsSidebarStateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocsSidebarStateCountAggregateOutputType> | number
+        }
+      }
+    }
+    PostRole: {
+      payload: Prisma.$PostRolePayload<ExtArgs>
+      fields: Prisma.PostRoleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PostRoleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PostRoleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>
+        }
+        findFirst: {
+          args: Prisma.PostRoleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PostRoleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>
+        }
+        findMany: {
+          args: Prisma.PostRoleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>[]
+        }
+        create: {
+          args: Prisma.PostRoleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>
+        }
+        createMany: {
+          args: Prisma.PostRoleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PostRoleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>[]
+        }
+        delete: {
+          args: Prisma.PostRoleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>
+        }
+        update: {
+          args: Prisma.PostRoleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>
+        }
+        deleteMany: {
+          args: Prisma.PostRoleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PostRoleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PostRoleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>[]
+        }
+        upsert: {
+          args: Prisma.PostRoleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostRolePayload>
+        }
+        aggregate: {
+          args: Prisma.PostRoleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePostRole>
+        }
+        groupBy: {
+          args: Prisma.PostRoleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PostRoleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PostRoleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PostRoleCountAggregateOutputType> | number
+        }
+      }
+    }
+    DocumentRole: {
+      payload: Prisma.$DocumentRolePayload<ExtArgs>
+      fields: Prisma.DocumentRoleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DocumentRoleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DocumentRoleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>
+        }
+        findFirst: {
+          args: Prisma.DocumentRoleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DocumentRoleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>
+        }
+        findMany: {
+          args: Prisma.DocumentRoleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>[]
+        }
+        create: {
+          args: Prisma.DocumentRoleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>
+        }
+        createMany: {
+          args: Prisma.DocumentRoleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DocumentRoleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>[]
+        }
+        delete: {
+          args: Prisma.DocumentRoleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>
+        }
+        update: {
+          args: Prisma.DocumentRoleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>
+        }
+        deleteMany: {
+          args: Prisma.DocumentRoleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DocumentRoleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DocumentRoleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>[]
+        }
+        upsert: {
+          args: Prisma.DocumentRoleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentRolePayload>
+        }
+        aggregate: {
+          args: Prisma.DocumentRoleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDocumentRole>
+        }
+        groupBy: {
+          args: Prisma.DocumentRoleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentRoleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DocumentRoleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentRoleCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1417,6 +1792,61 @@ export const DocumentPageScalarFieldEnum = {
 } as const
 
 export type DocumentPageScalarFieldEnum = (typeof DocumentPageScalarFieldEnum)[keyof typeof DocumentPageScalarFieldEnum]
+
+
+export const BlogPageStateScalarFieldEnum = {
+  blogId: 'blogId',
+  yjsState: 'yjsState',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type BlogPageStateScalarFieldEnum = (typeof BlogPageStateScalarFieldEnum)[keyof typeof BlogPageStateScalarFieldEnum]
+
+
+export const DocsPageStateScalarFieldEnum = {
+  docsId: 'docsId',
+  pageId: 'pageId',
+  yjsState: 'yjsState',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DocsPageStateScalarFieldEnum = (typeof DocsPageStateScalarFieldEnum)[keyof typeof DocsPageStateScalarFieldEnum]
+
+
+export const DocsSidebarStateScalarFieldEnum = {
+  docsId: 'docsId',
+  yjsState: 'yjsState',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DocsSidebarStateScalarFieldEnum = (typeof DocsSidebarStateScalarFieldEnum)[keyof typeof DocsSidebarStateScalarFieldEnum]
+
+
+export const PostRoleScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostRoleScalarFieldEnum = (typeof PostRoleScalarFieldEnum)[keyof typeof PostRoleScalarFieldEnum]
+
+
+export const DocumentRoleScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DocumentRoleScalarFieldEnum = (typeof DocumentRoleScalarFieldEnum)[keyof typeof DocumentRoleScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1680,6 +2110,11 @@ export type GlobalOmitConfig = {
   readingPlatform?: Prisma.ReadingPlatformOmit
   document?: Prisma.DocumentOmit
   documentPage?: Prisma.DocumentPageOmit
+  blogPageState?: Prisma.BlogPageStateOmit
+  docsPageState?: Prisma.DocsPageStateOmit
+  docsSidebarState?: Prisma.DocsSidebarStateOmit
+  postRole?: Prisma.PostRoleOmit
+  documentRole?: Prisma.DocumentRoleOmit
 }
 
 /* Types for Logging */

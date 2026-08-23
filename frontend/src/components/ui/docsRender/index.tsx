@@ -13,7 +13,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
 	ArticleRender,
 	ArticleSidebar,
-	ArticleTocRail,
+	ArticleTableContent,
 	FloatingActionBar,
 	MarkdownViewDialog,
 	AskWithAiDropdown,
@@ -93,9 +93,9 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 	const isDocsLoading = useApiLoading(loadingById[docId]);
 
 	useEffect(() => {
-		if (!docId) return;
+		if (!docId || doc) return;
 		dispatch(DocsRTK(docId));
-	}, [docId, dispatch]);
+	}, [docId, doc, dispatch]);
 
 	// ─── Derived State & Hooks (Must be before early returns) ───
 	const { title, content: md, isOverview } = usePathResolver(
@@ -120,7 +120,7 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 
 	// ─── Loading ─────────────────────────────────
 	if (isDocsLoading && !doc) {
-		return <BlogPageSkeleton showCover={false} />;
+		return <BlogPageSkeleton />;
 	}
 
 	// ─── Not Found ───────────────────────────────
@@ -151,16 +151,15 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 			/>
 
 			{/* ─── Main Layout ─── */}
-			<div className="relative flex w-full justify-center gap-3 xl:gap-4">
+			<div className="flex justify-center relative w-full gap-6 lg:gap-10">
 				<ArticleSidebar
-					docId={docId}
-					documentTitle={doc.title}
+					className="border-none !sticky !top-18 max-h-[calc(100vh-7rem)] gap-4"
 					navData={tree}
 					activeId={id.length === 1 ? docId : id[id.length - 1]}
 				/>
 
 				{/* ─── Article ─── */}
-				<article className="flex-1 min-w-0 w-full max-w-[49rem] px-4 sm:px-6 lg:px-2">
+				<article className="flex-1 min-w-0 w-full max-w-3xl px-4 sm:px-6 lg:px-2">
 					<motion.div
 						className="flex w-full min-w-0 flex-1 flex-col py-6 lg:py-10 text-neutral-800 dark:text-neutral-300"
 						initial="hidden"
@@ -189,7 +188,7 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 
 
 						{/* ── Article Content ── */}
-						<motion.div variants={fadeUp} className="min-w-0">
+						<motion.div variants={fadeUp} className="min-w-0 typeset typeset-docs max-w-none">
 							<ArticleRender content={md} />
 						</motion.div>
 
@@ -202,8 +201,39 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 					</motion.div>
 				</article>
 
-				{/* ─── Right-side heading minimap ─── */}
-				<ArticleTocRail toc={toc} />
+				{/* ─── Right Sidebar: TOC ─── */}
+				<aside className="hidden lg:block shrink-0 w-56 xl:w-64 sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-y-auto pb-8 custom-scroll">
+					<div className="px-4 py-0">
+						<div className="flex items-center gap-2 sticky top-0 bg-background pt-2 pb-3 z-10">
+							<div className="w-5 h-5 rounded-md bg-primary/10 flex items-center justify-center">
+								<svg
+									className="w-3 h-3 text-primary"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2.5}
+										d="M4 6h16M4 12h16M4 18h7"
+									/>
+								</svg>
+							</div>
+							<h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
+								On This Page
+							</h2>
+						</div>
+						{toc.length > 0 ? (
+							<ArticleTableContent toc={toc} />
+						) : (
+							<p className="text-xs text-muted-foreground/50 italic mt-2 pr-2">
+								No headings available
+							</p>
+						)}
+					</div>
+					<div className="from-background via-background/80 to-background/50 sticky -bottom-10 z-10 h-15 shrink-0 bg-gradient-to-t" />
+				</aside>
 			</div>
 
 			<FloatingActionBar

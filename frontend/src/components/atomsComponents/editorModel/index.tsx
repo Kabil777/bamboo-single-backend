@@ -38,8 +38,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/shadcnUI/select";
-import { createPost, uploadMedia } from "@/api/postsApi";
-import { useTagCatalog } from "@/hooks/useTagCatalog";
+import { useAppDispatch } from "@/hooks/ReduxHooks";
+import {
+    CreateNewBlog,
+    CreateNewDocs,
+} from "@/store/reducers/CreateCoverDetialsBlogDocs";
 
 interface CreateContentProps {
     title: string;
@@ -65,14 +68,28 @@ export const EditorModel = () => {
 
     const router = useRouter();
 
+    const dispatch = useAppDispatch();
+
     const anchor = useComboboxAnchor();
     const [type, setType] = useState<"blog" | "docs">("blog");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [open, setOpen] = useState<boolean>(false);
     const [tags, setTags] = useState<string[]>([]);
-    const { interests: managedTags } = useTagCatalog();
-    const predefinedTags = managedTags;
+    const predefinedTags = [
+        "Developer",
+        "Designer",
+        "Writer",
+        "Photographer",
+        "Creator",
+        "Artist",
+        "Engineer",
+        "Entrepreneur",
+        "Student",
+        "Teacher",
+        "Manager",
+        "Freelancer",
+    ];
     const defaultCoverUrl = "";
     const [coverUrl, setCoverUrl] = useState<string>(defaultCoverUrl);
     const [coverUrlInput, setCoverUrlInput] = useState<string>("");
@@ -142,6 +159,7 @@ export const EditorModel = () => {
         }
         const text = e.clipboardData.getData("text");
         if (text && isLikelyImageUrl(text)) {
+            e.preventDefault();
             setCoverUrlInput(text.trim());
             setCoverSource("url");
             setCoverFile(null);
@@ -192,20 +210,68 @@ export const EditorModel = () => {
 
         setLoading(true);
         try {
-            let mediaId: string | undefined;
+            let finalCoverUrl = coverUrl;
             const hasUrlInput = isLikelyImageUrl(coverUrlInput);
             const urlUploadRequested = coverSource === "url" || hasUrlInput;
             if (coverSource === "file" && coverFile) {
-                mediaId = await uploadMedia(coverFile);
+                const uploadUrl = `${process.env.NEXT_PUBLIC_API_VERSION}/upload/image`;
+                const formData = new FormData();
+                formData.append("file", coverFile);
+                const res = await api.post(uploadUrl, formData, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                });
+                const payload = res.data?.data ?? res.data ?? {};
+                finalCoverUrl =
+                    payload.url ||
+                    payload.location ||
+                    payload.imageUrl ||
+                    payload.uploadUrl;
+                if (!finalCoverUrl) {
+                    throw new Error("Upload failed: missing URL");
+                }
             } else if (urlUploadRequested) {
                 const rawUrl = (coverUrlInput || coverUrl).trim();
-                const response = await api.post<{ id: string }>("/api/v1/media/from-url", null, { params: { url: rawUrl } });
-                mediaId = response.data.id;
+                const uploadUrl = `${process.env.NEXT_PUBLIC_API_VERSION}/upload/image/url`;
+                const res = await api.post(uploadUrl, null, {
+                    params: { url: rawUrl },
+                });
+                const payload = res.data?.data ?? res.data ?? {};
+                finalCoverUrl =
+                    payload.url ||
+                    payload.location ||
+                    payload.imageUrl ||
+                    payload.uploadUrl;
+                if (!finalCoverUrl) {
+                    throw new Error("Upload failed: missing URL");
+                }
             }
-            if (type !== "blog") throw new Error("Docs are no longer available");
-            const initialDescription = description.trim();
-            const created = await createPost({ title: title.trim(), description: initialDescription || null, content: initialDescription, mediaId });
-            router.push(`/editor/blog/${created.id}`);
+            const cover: CreateContentProps = {
+                title: title.trim(),
+                coverUrl: finalCoverUrl,
+                description: description.trim(),
+                tags: tags,
+            };
+            console.log("Creating content with details:", cover);
+            let created;
+            if (type === "blog") {
+                created = await dispatch(
+                    CreateNewBlog(cover as CreateContentProps),
+                ).unwrap();
+                if (created && created.id) {
+                    router.push(`/editor/blog/${created.id}`);
+                } else {
+                    toast.error("Failed to create blog. Please try again.");
+                }
+            } else if (type === "docs") {
+                created = await dispatch(
+                    CreateNewDocs(cover as CreateContentProps),
+                ).unwrap();
+                if (created && created.id) {
+                    router.push(`/editor/docs/${created.id}`);
+                } else {
+                    toast.error("Failed to create docs. Please try again.");
+                }
+            }
         } catch (error) {
             console.error("Failed to create content:", error);
             toast.error("Failed to create content. Please try again.");

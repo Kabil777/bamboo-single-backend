@@ -25,6 +25,8 @@ model User {
     mediaAssets  MediaAsset[]
     newsletters  Newsletter[]
     documents    Document[]
+    postRoles    PostRole[]
+    documentRoles DocumentRole[]
 
     @@unique([email, providerId])
     @@map("users")
@@ -65,6 +67,7 @@ model Post {
     media     MediaAsset?  @relation(fields: [mediaId], references: [id], onDelete: SetNull)
     likes     PostLike[]
     bookmarks PostBookmark[]
+    roles     PostRole[]
 
     @@index([createdAt])
     @@index([authorId])
@@ -156,6 +159,7 @@ model Document {
     author    User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
     media     MediaAsset? @relation(fields: [mediaId], references: [id], onDelete: SetNull)
     pages     DocumentPage[]
+    roles     DocumentRole[]
 
     @@index([authorId])
     @@index([createdAt])
@@ -181,3 +185,67 @@ model DocumentPage {
     @@index([parentId])
     @@map("document_pages")
 }
+
+model BlogPageState {
+    blogId    String   @id @map("blog_id") @db.Uuid
+    yjsState  Bytes    @map("yjs_state") @db.ByteA
+    updatedAt DateTime @updatedAt @map("updated_at")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@map("blog_page_state")
+}
+
+model DocsPageState {
+    docsId    String   @map("docs_id") @db.Uuid
+    pageId    String   @id @map("page_id") @db.Uuid
+    yjsState  Bytes    @map("yjs_state") @db.ByteA
+    updatedAt DateTime @updatedAt @map("updated_at")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@index([docsId])
+    @@map("docs_page_state")
+}
+
+model DocsSidebarState {
+    docsId    String   @id @map("docs_id") @db.Uuid
+    yjsState  Bytes    @map("yjs_state") @db.ByteA
+    updatedAt DateTime @updatedAt @map("updated_at")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@map("docs_sidebar_state")
+}
+
+model PostRole {
+    id        String   @id @default(uuid()) @db.Uuid
+    postId    String   @map("post_id") @db.Uuid
+    userId    String   @map("user_id") @db.Uuid
+    role      String   @db.VarChar(20) // "EDITOR" or "READER"
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([postId, userId])
+    @@index([postId])
+    @@index([userId])
+    @@map("post_roles")
+}
+
+model DocumentRole {
+    id         String   @id @default(uuid()) @db.Uuid
+    documentId String   @map("document_id") @db.Uuid
+    userId     String   @map("user_id") @db.Uuid
+    role       String   @db.VarChar(20) // "EDITOR" or "READER"
+    createdAt  DateTime @default(now()) @map("created_at")
+    updatedAt  DateTime @updatedAt @map("updated_at")
+
+    document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+    user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([documentId, userId])
+    @@index([documentId])
+    @@index([userId])
+    @@map("document_roles")
+}
+

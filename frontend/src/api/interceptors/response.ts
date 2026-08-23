@@ -17,7 +17,7 @@ function getServiceLabel(url?: string) {
     try {
         const absoluteUrl = url.startsWith("http")
             ? new URL(url)
-            : new URL(url, process.env.NEXT_PUBLIC_API_SERVER_URL);
+            : new URL(url, typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"));
         return absoluteUrl.hostname === "localhost"
             ? `${absoluteUrl.port || absoluteUrl.hostname}`
             : absoluteUrl.hostname;
@@ -86,8 +86,9 @@ export const responseInterceptor = async (error: any) => {
         isRefreshing = true;
 
         try {
-            const URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/auth`;
-            await authApi.post(URL + "/refresh");
+            const apiVersion = process.env.NEXT_PUBLIC_API_VERSION || "/api/v1";
+            const URL = `${apiVersion}/auth/refresh`;
+            await authApi.post(URL);
 
             processQueue(null);
             return api(originalRequest);

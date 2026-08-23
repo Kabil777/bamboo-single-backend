@@ -13,7 +13,6 @@ import {
 import { useRef, useState } from "react";
 
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useEditor } from "@tiptap/react";
 import {
     Select,
     SelectContent,
@@ -198,7 +197,8 @@ interface props {
     open: boolean;
     setOpen: Setter<boolean>;
     onClick: () => void;
-    editor: ReturnType<typeof useEditor>;
+    editor?: any;
+    onImportContent?: (htmlContent: string) => void;
 }
 
 const handleupload = (
@@ -217,24 +217,29 @@ const handleupload = (
 };
 
 const setEditorContent = async (
-    editor: ReturnType<typeof useEditor>,
+    editor: any,
     content: string,
+    onImportContent?: (htmlContent: string) => void,
 ) => {
     try {
         const tree = marked.parse(content);
-
         const data = String(tree);
-        if (editor) {
-            console.log(data);
+
+        if (onImportContent) {
+            onImportContent(content);
+            toast.success("Content loaded successfully!");
+        } else if (editor && editor.commands) {
             editor.commands.setContent(data);
             toast.success("Content loaded successfully!");
+        } else {
+            toast.error("No editor available to load content.");
         }
     } catch (error) {
         console.error(error);
         toast.error("Failed to load content.");
     }
 };
-function Popup({ open, setOpen, editor }: props) {
+function Popup({ open, setOpen, editor, onImportContent }: props) {
     const [content, saveContent] = useState("");
     const [uploadType, setUploadType] = useState("file");
     const [dragActive, setDragActive] = useState(false);
@@ -407,7 +412,7 @@ function Popup({ open, setOpen, editor }: props) {
                             variant="default"
                             onClick={async () => {
                                 setOpen(false);
-                                await setEditorContent(editor, content);
+                                await setEditorContent(editor, content, onImportContent);
                             }}
                         >
                             Submit

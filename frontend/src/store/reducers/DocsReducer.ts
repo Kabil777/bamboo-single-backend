@@ -8,7 +8,8 @@ import injectOverview from "@/hooks/useAddOverview";
 export const DocsRTK = createAsyncThunk<Docs, UUID, { state: RootState }>(
     "/docs/id",
     async (id, { rejectWithValue }) => {
-        const URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/docs/${id}`;
+        const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+        const URL = `${apiVersion}/docs/${id}`;
         try {
             const { data } = await api.get<{
                 id: string;
@@ -19,7 +20,7 @@ export const DocsRTK = createAsyncThunk<Docs, UUID, { state: RootState }>(
                 author: { id: string; name: string; pictureUrl: string | null };
                 pages: Array<{ id: string; title: string; content: string; parentId: string | null }>;
             }>(URL);
-            const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+            const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
             return {
                 id: data.id,
                 title: data.title,

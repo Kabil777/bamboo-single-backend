@@ -11,9 +11,17 @@
         "build": "tsc -p tsconfig.json",
         "start": "node dist/index.js",
         "typecheck": "tsc --noEmit",
+        "db:up": "docker compose -f ../docker-compose.yml up -d db",
+        "db:down": "docker compose -f ../docker-compose.yml down",
+        "db:push": "prisma db push",
+        "db:migrate": "prisma migrate deploy",
+        "db:generate": "prisma generate",
+        "seed:admin": "tsx src/scripts/seed-admin.ts",
         "seed:reading-platforms": "tsx src/scripts/seed-reading-platforms.ts",
-        "seed:apache-kafka": "tsx src/scripts/seed-apache-kafka.ts"
-        ,"seed:data-platform-content": "tsx src/scripts/seed-data-platform-content.ts"
+        "seed:apache-kafka": "tsx src/scripts/seed-apache-kafka.ts",
+        "seed:data-platform-content": "tsx src/scripts/seed-data-platform-content.ts",
+        "seed:all": "npm run seed:admin && npm run seed:reading-platforms && npm run seed:apache-kafka && npm run seed:data-platform-content",
+        "setup": "bash ../scripts/setup-db.sh"
     },
     "devDependencies": {
         "@types/cookie-parser": "^1.4.10",
@@ -22,11 +30,16 @@
         "@types/passport": "^1.0.17",
         "@types/passport-google-oauth20": "^2.0.17",
         "@types/pg": "^8.18.0",
+        "@types/ws": "^8.18.1",
         "prisma": "^7.5.0",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     },
     "dependencies": {
+        "@hocuspocus/extension-redis": "^3.4.4",
+        "@hocuspocus/provider": "^3.4.4",
+        "@hocuspocus/server": "^3.4.4",
+        "@hocuspocus/transformer": "^3.4.3",
         "@prisma/adapter-pg": "^7.5.0",
         "@prisma/client": "^7.5.0",
         "cookie": "^1.1.1",
@@ -37,6 +50,9 @@
         "passport": "^0.7.0",
         "passport-google-oauth20": "^2.0.0",
         "pg": "^8.20.0",
-        "pino": "^9.5.0"
+        "pino": "^9.5.0",
+        "redis": "^5.11.0",
+        "ws": "^8.19.0",
+        "yjs": "^13.6.30"
     }
 }

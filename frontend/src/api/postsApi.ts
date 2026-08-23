@@ -17,7 +17,7 @@ export type Post = {
 };
 
 const mediaUrl = (id: string) => {
-    const base = (process.env.NEXT_PUBLIC_API_SERVER_URL ?? "http://localhost:8092").replace(/\/$/, "");
+    const base = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL ?? "http://localhost:8092"))).replace(/\/$/, "");
     return `${base}/api/v1/media/${id}`;
 };
 

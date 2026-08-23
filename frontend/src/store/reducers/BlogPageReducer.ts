@@ -29,7 +29,7 @@ export const BlogPageRtk = createAsyncThunk<
             bookmarked?: boolean;
             isBookmarked?: boolean;
         };
-        const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+        const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
         return {
             id: post.id,
             title: post.title,

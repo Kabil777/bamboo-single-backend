@@ -7,7 +7,8 @@ export const getFeaturedBlogs = createAsyncThunk<BlogHomeCard[]>(
     "/blog/featured",
     async (_, { rejectWithValue }) => {
         try {
-            const url = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/posts`;
+            const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+            const url = `${apiVersion}/posts`;
             const res = await api.get<{ data: Parameters<typeof toBlogHomeCard>[0][] }>(url);
             return res.data.data.slice(0, 3).map(toBlogHomeCard);
         } catch {

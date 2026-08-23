@@ -82,7 +82,8 @@ export const getProfileDetials = createAsyncThunk<Profile, void>(
 export const getUserProfileByHandle = createAsyncThunk<Profile, string>(
 	"/api/getuserprofilebyhandle",
 	async (handle: string, { rejectWithValue }) => {
-		const URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/community/users/${handle}`;
+		const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+		const URL = `${apiVersion}/community/users/${handle}`;
 		try {
 			const response = await api.get<Profile>(URL);
 			return response.data;
@@ -117,7 +118,8 @@ export const getProfileCounts = createAsyncThunk<ProfileCounts, void>(
 export const getProfileCountsByHandle = createAsyncThunk<ProfileCounts, string>(
 	"/api/getprofilecountsbyhandle",
 	async (handle: string, { rejectWithValue }) => {
-		const URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/community/users/${handle}`;
+		const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+		const URL = `${apiVersion}/community/users/${handle}`;
 		try {
 			const response = await api.get<{ stats: { posts: ProfileCounts["blogs"]; docs: ProfileCounts["docs"] } }>(URL);
 			return { followers: 0, following: 0, bookmarks: 0, blogs: response.data.stats.posts, docs: response.data.stats.docs, otherCounts: {} };
@@ -145,7 +147,7 @@ export const getAllProfileBlog = createAsyncThunk<AllProfileBlog, void>(
 				visibility: "PUBLIC" | "UNLISTED" | "PRIVATE";
 				author: { id: string; name: string; pictureUrl: string | null };
 			}> }>("/api/v1/community/me/posts");
-		const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+		const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
 		return {
 			items: postsResponse.data.data.map((post) => ({
 					id: post.id,
@@ -167,10 +169,11 @@ export const getAllProfileBlogByHandle = createAsyncThunk<
 	AllProfileBlog,
 	string
 >("/api/getallprofileblogbyhandle", async (handle, { rejectWithValue }) => {
-	const URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/community/users/${handle}/posts`;
+	const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+	const URL = `${apiVersion}/community/users/${handle}/posts`;
 	try {
 		const response = await api.get<{ data: Array<{ id: string; title: string; description?: string | null; content: string; mediaId: string | null; createdAt: string; visibility: "PUBLIC" | "UNLISTED" | "PRIVATE"; author: { id: string; name: string; pictureUrl: string | null } }> }>(URL);
-		const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+		const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
 		return { items: response.data.data.map((post) => ({ id: post.id, title: post.title, description: post.description?.trim() || post.content.replace(/<[^>]*>/g, "").slice(0, 180), coverUrl: post.mediaId ? `${apiBase}/api/v1/media/${post.mediaId}` : "", createdAt: post.createdAt, visibility: post.visibility, tags: [], author: { id: post.author.id, name: post.author.name, handle: "", avatarUrl: post.author.pictureUrl } })), hasNext: false, cursor: null };
 	} catch (e: any) {
 		const { message } = getApiErrorMessage(
@@ -194,7 +197,7 @@ export const getAllProfileDocs = createAsyncThunk<AllProfileDocs, void>(
 				visibility: "PUBLIC" | "UNLISTED" | "PRIVATE";
 				author: { id: string; name: string; pictureUrl: string | null };
 			}> }>("/api/v1/docs/me");
-		const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+		const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
 		return {
 			items: documentsResponse.data.data.map((document) => ({
 					id: document.id,
@@ -216,8 +219,9 @@ export const getAllProfileDocsByHandle = createAsyncThunk<
 	string
 >("/api/getallprofiledocsbyhandle", async (handle, { rejectWithValue }) => {
 	try {
-		const response = await api.get<{ data: Array<{ id: string; title: string; content: string; mediaId: string | null; createdAt: string; visibility: "PUBLIC" | "UNLISTED" | "PRIVATE"; author: { id: string; name: string; pictureUrl: string | null } }> }>(`${process.env.NEXT_PUBLIC_API_SERVER_URL}${process.env.NEXT_PUBLIC_API_VERSION}/community/users/${handle}/docs`);
-		const apiBase = (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092").replace(/\/$/, "");
+		const apiVersion = process.env.NEXT_PUBLIC_API_VERSION ?? "/api/v1";
+		const response = await api.get<{ data: Array<{ id: string; title: string; content: string; mediaId: string | null; createdAt: string; visibility: "PUBLIC" | "UNLISTED" | "PRIVATE"; author: { id: string; name: string; pictureUrl: string | null } }> }>(`${apiVersion}/community/users/${handle}/docs`);
+		const apiBase = ((typeof window !== "undefined" ? "" : (process.env.NEXT_PUBLIC_API_SERVER_URL || "http://localhost:8092"))).replace(/\/$/, "");
 		return { items: response.data.data.map((doc) => ({ id: doc.id, title: doc.title, description: doc.content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 180), coverUrl: doc.mediaId ? `${apiBase}/api/v1/media/${doc.mediaId}` : "", createdAt: doc.createdAt, visibility: doc.visibility, author: { id: doc.author.id, name: doc.author.name, handle: "", avatarUrl: doc.author.pictureUrl } })), hasNext: false, cursor: null };
 	} catch (e: any) {
 		const { message } = getApiErrorMessage(e, "Failed to fetch user profile docs", { suppressToast: true });

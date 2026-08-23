@@ -14,14 +14,19 @@ import linkPreviewRouter from "../modules/link-preview/link-preview.routes.js";
 import readingPlatformsRouter from "../modules/reading-platforms/reading-platforms.routes.js";
 import documentRouter from "../modules/document/document.routes.js";
 import tagsRouter from "../modules/tags/tags.routes.js";
+import { UpgradeHandler } from "../ws/upgradeHandler.js";
+import { createCollabRouter } from "../modules/collab/collab.routes.js";
 
 export class HttpServer {
     private readonly app: Express;
     private readonly httpServer: Server;
+    private readonly upgradeHandler: UpgradeHandler;
 
     constructor() {
         this.app = express();
         this.httpServer = createServer(this.app);
+        this.upgradeHandler = new UpgradeHandler();
+        this.upgradeHandler.attach(this.httpServer);
         this.registerHttpRoutes();
     }
 
@@ -33,6 +38,11 @@ export class HttpServer {
 
         this.app.get("/health", (_, res) => res.status(200).json({ ok: true, service: "blog-api" }));
         this.app.use(rootRouter);
+
+        const collabRouter = createCollabRouter(this.upgradeHandler.getCollabServer());
+        this.app.use("/api", collabRouter);
+        this.app.use("/api/v1", collabRouter);
+
         this.app.use("/api/v1/auth", authRouter);
         this.app.use("/api/v1/posts", postRouter);
         this.app.use("/api/v1/media", mediaRouter);
@@ -50,6 +60,6 @@ export class HttpServer {
     }
 
     public listen(port: number): void {
-        this.httpServer.listen(port, () => logger.info({ port }, "HTTP listening"));
+        this.httpServer.listen(port, () => logger.info({ port }, "HTTP & WebSocket server listening"));
     }
 }
