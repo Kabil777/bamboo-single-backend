@@ -1,0 +1,89 @@
+.article-render-root {
+    --article-text: hsl(var(--foreground));
+    --article-muted: hsl(var(--muted-foreground));
+    --article-accent: hsl(var(--primary));
+    --article-border: hsl(var(--border));
+    --article-bg-muted: hsl(var(--muted));
+    --article-code-bg: #1a1b26;
+    --article-code-header: #13141c;
+}
+
+/* Smooth anchor scroll */
+.article-render-root * {
+    scroll-margin-top: 5rem;
+}
+
+/* Heading hover anchor link effect */
+.article-heading {
+    position: relative;
+}
+
+.article-heading::before {
+    content: '#';
+    position: absolute;
+    left: -1.5em;
+    opacity: 0;
+    color: var(--article-accent);
+    font-weight: 400;
+    transition: opacity 0.2s ease;
+}
+
+.article-heading:hover::before {
+    opacity: 0.4;
+}
+
+/* Inline code shimmer on hover */
+.article-inline-code {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-inline-code:hover {
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15);
+}
+
+/* Link underline animation */
+.article-link {
+    text-decoration: none;
+    background-image: linear-gradient(hsl(var(--primary) / 0.3),
+            hsl(var(--primary) / 0.3));
+    background-size: 0% 1.5px;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        color 0.2s ease;
+}
+
+.article-link:hover {
+    background-size: 100% 1.5px;
+    color: hsl(var(--primary));
+}
+
+/* Table row hover */
+.article-table-row {
+    transition: background-color 0.15s ease;
+}
+
+/* Code block copy button */
+.code-block-copy-btn {
+    transition: all 0.2s ease;
+}
+
+.code-block-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Blockquote left border gradient */
+.article-blockquote {
+    border-image: linear-gradient(to bottom,
+            hsl(var(--primary)),
+            hsl(var(--primary) / 0.2)) 1;
+}
+
+/* Checkbox styling for task lists */
+.article-render-root input[type="checkbox"] {
+    accent-color: hsl(var(--primary));
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}

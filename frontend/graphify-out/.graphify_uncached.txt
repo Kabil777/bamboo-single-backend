@@ -1,0 +1,9 @@
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/.agents/rules/graphify.md
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/.agents/workflows/graphify.md
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/README.md
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/md.md
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/public/bg.webp
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/public/loginImg.png
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/public/logo.png
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/public/unnamed.jpg
+/home/kabil/kabil-backup/backup/personal/projects/Bamboo/frontend/public/upload.jpg

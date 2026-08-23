@@ -1,0 +1,337 @@
+.bamboo-loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+  }
+
+  // Speed variations
+  &.speed-slow {
+    --animation-duration: 4s;
+  }
+
+  &.speed-normal {
+    --animation-duration: 2.5s;
+  }
+
+  &.speed-fast {
+    --animation-duration: 1.5s;
+  }
+
+  // Sway variant (default)
+  &--sway {
+    .bamboo-left {
+      animation: bamboo-sway-left var(--animation-duration, 2.5s) ease-in-out
+        infinite;
+      transform-origin: 50% 90%;
+    }
+
+    .bamboo-right {
+      animation: bamboo-sway-right var(--animation-duration, 2.5s) ease-in-out
+        infinite;
+      transform-origin: 50% 90%;
+    }
+  }
+
+  // Grow variant
+  &--grow {
+    .bamboo-path {
+      opacity: 0;
+      transform: scale(0.8) translateY(-20px);
+      transform-origin: bottom center;
+    }
+
+    // Stems grow first (paths 2, 3, 4, 12, 13, 14)
+    // All stems grow bottom to top
+    .path-2.stem {
+      animation: bamboo-stem-grow-up var(--animation-duration, 2.5s) ease-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0);
+    }
+    .path-3.stem {
+      animation: bamboo-stem-grow-up var(--animation-duration, 2.5s) ease-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.08);
+    }
+    .path-4.stem {
+      animation: bamboo-stem-grow-up var(--animation-duration, 2.5s) ease-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.16);
+    }
+
+    // Right stems also grow bottom to top
+    .path-12.stem {
+      animation: bamboo-stem-grow-up var(--animation-duration, 2.5s) ease-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.04);
+    }
+    .path-13.stem {
+      animation: bamboo-stem-grow-up var(--animation-duration, 2.5s) ease-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.12);
+    }
+    .path-14.stem {
+      animation: bamboo-stem-grow-up var(--animation-duration, 2.5s) ease-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.2);
+    }
+
+    // Leaves grow after stems (paths 1, 5, 6, 7, 8, 9, 10, 11)
+    .leaf {
+      animation: bamboo-leaf-grow var(--animation-duration, 2.5s) ease-out
+        infinite;
+    }
+
+    .path-1.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.40);
+    }
+    .path-5.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.44);
+    }
+    .path-6.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.48);
+    }
+    .path-7.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.52);
+    }
+    .path-8.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.56);
+    }
+    .path-9.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.60);
+    }
+    .path-10.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.64);
+    }
+    .path-11.leaf {
+      animation-delay: calc(var(--animation-duration, 2.5s) * 0.68);
+    }
+
+    .bamboo-left {
+      transform-origin: 50% 100%;
+    }
+
+    .bamboo-right {
+      transform-origin: 50% 100%;
+    }
+  }
+
+  // Pulse variant
+  &--pulse {
+    animation: bamboo-pulse var(--animation-duration, 2.5s) ease-in-out infinite;
+
+    .bamboo-left,
+    .bamboo-right {
+      animation: bamboo-fade var(--animation-duration, 2.5s) ease-in-out
+        infinite;
+    }
+
+    .bamboo-right {
+      animation-delay: calc(var(--animation-duration, 2.5s) / 2);
+    }
+  }
+
+  // Spin variant
+  &--spin {
+    animation: bamboo-spin var(--animation-duration, 2.5s) linear infinite;
+  }
+
+  // Float variant
+  &--float {
+    animation: bamboo-float var(--animation-duration, 2.5s) ease-in-out infinite;
+
+    .bamboo-left {
+      animation: bamboo-float-left var(--animation-duration, 2.5s) ease-in-out
+        infinite;
+    }
+
+    .bamboo-right {
+      animation: bamboo-float-right var(--animation-duration, 2.5s) ease-in-out
+        infinite;
+      animation-delay: calc(var(--animation-duration, 2.5s) / 4);
+    }
+  }
+}
+
+// Sway animations
+@keyframes bamboo-sway-left {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(-4deg) translateX(-2px);
+  }
+  50% {
+    transform: rotate(0deg) translateX(0);
+  }
+  75% {
+    transform: rotate(4deg) translateX(2px);
+  }
+}
+
+@keyframes bamboo-sway-right {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(4deg) translateX(2px);
+  }
+  50% {
+    transform: rotate(0deg) translateX(0);
+  }
+  75% {
+    transform: rotate(-4deg) translateX(-2px);
+  }
+}
+
+// Stem growing animation - bottom to top
+@keyframes bamboo-stem-grow-up {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0) translateY(30px);
+  }
+  5% {
+    opacity: 0.4;
+    transform: scaleY(0.3) translateY(20px);
+  }
+  12% {
+    opacity: 1;
+    transform: scaleY(1.08) translateY(-3px);
+  }
+  16% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  76% {
+    opacity: 0.7;
+    transform: scaleY(0.8) translateY(10px);
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0) translateY(30px);
+  }
+}
+
+
+// Leaf growing animation (appears after stems)
+@keyframes bamboo-leaf-grow {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0) translateY(30px);
+  }
+  5% {
+    opacity: 0.4;
+    transform: scaleY(1) translateY(0);
+  }
+  12% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0px);
+  }
+  16% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  76% {
+    opacity: 0.7;
+    transform: scaleY(0.8) translateY(10px);
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0) translateY(30px);
+  }
+}
+
+// Pulse animations
+@keyframes bamboo-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes bamboo-fade {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+// Spin animation
+@keyframes bamboo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Float animations
+@keyframes bamboo-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes bamboo-float-left {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 1;
+  }
+  33% {
+    transform: translateY(-8px) rotate(-5deg);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(-4px) rotate(5deg);
+    opacity: 0.9;
+  }
+}
+
+@keyframes bamboo-float-right {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 1;
+  }
+  33% {
+    transform: translateY(-6px) rotate(5deg);
+    opacity: 0.85;
+  }
+  66% {
+    transform: translateY(-10px) rotate(-5deg);
+    opacity: 0.95;
+  }
+}

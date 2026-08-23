@@ -1,0 +1,1 @@
+export { SadProfile } from './sadProfile';

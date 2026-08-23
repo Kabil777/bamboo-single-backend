@@ -1,0 +1,14 @@
+.tiptap.ProseMirror pre {
+  display: block;
+  padding: 0.5rem 1rem;
+  overflow-x: auto;
+  border-radius: 6px;
+  background: #1a1b26 !important; /* allow HLJS theme to apply */
+  color: #a9b1d6 !important;
+}
+
+.simple-editor-content pre {
+  background: unset; /* remove editor wrapper background */
+  padding: 0; /* optional: no extra padding */
+  margin: 0; /* optional */
+}
