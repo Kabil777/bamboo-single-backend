@@ -49,6 +49,11 @@ export default function AdministrationPage() {
     const [platforms, setPlatforms] = useState<ReadingPlatform[]>([]);
     const [platformsLoading, setPlatformsLoading] = useState(true);
     const [platformSaving, setPlatformSaving] = useState(false);
+    const [collaborationEnabled, setCollaborationEnabled] = useState(false);
+    const [collaborationLoading, setCollaborationLoading] = useState(true);
+    const [autosaveEnabled, setAutosaveEnabled] = useState(true);
+    const [autosaveDelay, setAutosaveDelay] = useState(700);
+    const [autosaveSaving, setAutosaveSaving] = useState(false);
     const [access, setAccess] = useState<"checking" | "allowed" | "denied">("checking");
     const [error, setError] = useState("");
 
@@ -64,6 +69,22 @@ export default function AdministrationPage() {
         }
     };
 
+    const loadCollaborationSetting = async () => {
+        try {
+            const [collaboration, autosave] = await Promise.all([
+                api.get<{ enabled: boolean }>("/api/v1/settings/collaboration"),
+                api.get<{ enabled: boolean; delay: number }>("/api/v1/settings/editor-save"),
+            ]);
+            setCollaborationEnabled(collaboration.data.enabled);
+            setAutosaveEnabled(autosave.data.enabled);
+            setAutosaveDelay(autosave.data.delay);
+        } catch {
+            setError("Collaboration settings could not be loaded.");
+        } finally {
+            setCollaborationLoading(false);
+        }
+    };
+
     useEffect(() => {
         if (status === "idle" || status === "loading") return;
         let current = true;
@@ -76,6 +97,7 @@ export default function AdministrationPage() {
                 if (!current) return;
                 setAccess("allowed");
                 void loadPlatforms();
+                void loadCollaborationSetting();
             })
             .catch(() => current && setAccess("denied"));
         return () => { current = false; };
@@ -132,6 +154,32 @@ export default function AdministrationPage() {
         }
     };
 
+    const toggleCollaboration = async () => {
+        const enabled = !collaborationEnabled;
+        setCollaborationLoading(true);
+        try {
+            const { data } = await api.patch<{ enabled: boolean }>("/api/v1/settings/collaboration", { enabled });
+            setCollaborationEnabled(data.enabled);
+        } catch {
+            setError("Collaboration settings could not be saved.");
+        } finally {
+            setCollaborationLoading(false);
+        }
+    };
+
+    const saveAutosaveSettings = async () => {
+        setAutosaveSaving(true);
+        try {
+            const { data } = await api.patch<{ enabled: boolean; delay: number }>("/api/v1/settings/editor-save", { enabled: autosaveEnabled, delay: autosaveDelay });
+            setAutosaveEnabled(data.enabled);
+            setAutosaveDelay(data.delay);
+        } catch {
+            setError("Document save settings could not be saved.");
+        } finally {
+            setAutosaveSaving(false);
+        }
+    };
+
     if (access === "checking") {
         return <AdministrationSkeleton />;
     }
@@ -154,6 +202,32 @@ export default function AdministrationPage() {
             {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
             <div className="mt-8 grid gap-6">
+                <section className="rounded-xl border bg-card p-5">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <h3 className="font-semibold">Live collaboration</h3>
+                            <p className="mt-1 text-sm text-muted-foreground">When enabled, Yjs owns document synchronization and local autosave safeguards are disabled.</p>
+                        </div>
+                        <Button onClick={() => void toggleCollaboration()} disabled={collaborationLoading} variant={collaborationEnabled ? "default" : "outline"}>
+                            {collaborationLoading ? <LoaderCircle className="size-4 animate-spin" /> : null}
+                            {collaborationEnabled ? "Collaboration enabled" : "Enable collaboration"}
+                        </Button>
+                    </div>
+                </section>
+                <section className="rounded-xl border bg-card p-5">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <h3 className="font-semibold">Document autosave</h3>
+                            <p className="mt-1 text-sm text-muted-foreground">Local saving used when live collaboration is disabled.</p>
+                        </div>
+                        <Button onClick={() => setAutosaveEnabled((current) => !current)} disabled={collaborationEnabled} variant={autosaveEnabled ? "default" : "outline"}>{autosaveEnabled ? "Autosave enabled" : "Autosave disabled"}</Button>
+                    </div>
+                    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+                        <label className="flex-1 text-sm font-medium">Save delay (milliseconds)<Input className="mt-2" type="number" min={250} max={5000} step={50} value={autosaveDelay} disabled={collaborationEnabled || !autosaveEnabled} onChange={(event) => setAutosaveDelay(Math.max(250, Math.min(5000, Number(event.target.value) || 250)))} /></label>
+                        <Button onClick={() => void saveAutosaveSettings()} disabled={collaborationEnabled || autosaveSaving}>{autosaveSaving && <LoaderCircle className="size-4 animate-spin" />}Save settings</Button>
+                    </div>
+                    {collaborationEnabled && <p className="mt-3 text-xs text-muted-foreground">Autosave is currently overridden by live collaboration.</p>}
+                </section>
                 <section className="rounded-xl border bg-card p-5">
                     <div className="flex items-start gap-3"><Globe2 className="mt-0.5 size-5 text-muted-foreground" /><div><h3 className="font-semibold">Platforms to read on</h3><p className="mt-1 text-sm text-muted-foreground">Curated external publications shown on the homepage. Cover images are imported and served from your database.</p></div></div>
                     <div className="mt-5 grid gap-3 md:grid-cols-2">

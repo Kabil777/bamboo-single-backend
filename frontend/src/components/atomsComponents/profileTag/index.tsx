@@ -590,33 +590,39 @@ export const ProfileTag = ({
                         open={deleteDialogOpen}
                         onOpenChange={setDeleteDialogOpen}
                     >
-                        <DialogContent className="sm:max-w-md border-border/60 shadow-xl rounded-none p-7">
-                            <DialogHeader className="space-y-4">
-                                <div className="space-y-1">
+                        <DialogContent className="sm:max-w-md rounded-xl border-border/60 bg-background p-6 shadow-xl">
+                            <DialogHeader className="gap-4 sm:text-left">
+                                <div className="flex size-11 items-center justify-center rounded-full bg-muted text-foreground">
+                                    <Trash2 className="size-5" aria-hidden="true" />
+                                </div>
+                                <div className="space-y-1.5">
                                     <DialogTitle>{`Delete this ${resourceLabel}?`}</DialogTitle>
                                     <DialogDescription>
-                                        {`This permanently removes the ${resourceLabel} and its access data. This action cannot be undone.`}
+                                        {contentType === "docs"
+                                            ? "This permanently deletes the document and every page in its tree. This action cannot be undone."
+                                            : "This permanently removes the blog and its access data. This action cannot be undone."}
                                     </DialogDescription>
                                 </div>
                             </DialogHeader>
 
-                            <div className="border border-foreground/10 bg-foreground/[0.03] px-4 py-3 text-sm text-muted-foreground">
-                                {`The ${resourceLabel} will disappear from your profile and public feeds immediately after deletion.`}
+                            <div className="rounded-lg border border-foreground/10 bg-foreground/[0.03] px-4 py-3 text-sm leading-6 text-foreground/75">
+                                {contentType === "docs"
+                                    ? "All document content, including nested pages, will be removed immediately."
+                                    : "The blog will disappear from your profile and public feeds immediately."}
                             </div>
 
-                            <DialogFooter className="gap-3 pt-1 sm:justify-end">
+                            <DialogFooter className="gap-2 pt-2 sm:justify-end">
                                 <Button
                                     variant="outline"
                                     onClick={() => setDeleteDialogOpen(false)}
                                     disabled={isDeleting}
-                                    className="rounded-none"
                                 >
-                                    {`Keep ${resourceLabel}`}
+                                    Cancel
                                 </Button>
                                 <Button
                                     onClick={() => handleDelete(idBlog)}
                                     disabled={isDeleting}
-                                    className="rounded-none bg-foreground text-background hover:bg-foreground/90"
+                                    variant="default"
                                 >
                                     {isDeleting ? "Deleting..." : `Delete ${resourceLabel}`}
                                 </Button>

@@ -41,6 +41,15 @@ model Tag {
     @@map("tags")
 }
 
+model SystemSetting {
+    id                   Int     @id @default(1)
+    collaborationEnabled Boolean @default(false) @map("collaboration_enabled")
+    documentAutosaveEnabled Boolean @default(true) @map("document_autosave_enabled")
+    documentAutosaveDelay   Int     @default(700) @map("document_autosave_delay")
+
+    @@map("system_settings")
+}
+
 model RefreshToken {
     id           Int      @id @default(autoincrement())
     userId       String   @unique @map("user_id") @db.Uuid

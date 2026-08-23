@@ -9,8 +9,6 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarMenuSub,
-    SidebarMenuSubButton,
-    SidebarMenuSubItem,
 } from "@/components/shadcnUI/sidebar";
 import {
     Collapsible,
@@ -26,6 +24,67 @@ type NavigationItem = {
     subTree?: NavigationItem[];
 };
 
+function getChildren(item: NavigationItem) {
+    return item.subPages || item.subTree || [];
+}
+
+function DocsTreeItem({
+    item,
+    docId,
+    activeId,
+    ancestors,
+}: {
+    item: NavigationItem;
+    docId: string;
+    activeId?: string;
+    ancestors: string[];
+}) {
+    const children = getChildren(item);
+    const hasChildren = children.length > 0;
+    const isOverviewItem =
+        item.id === docId ||
+        item.title?.trim().toLowerCase() === "overview";
+    const itemHref = isOverviewItem
+        ? `/docs/${docId}`
+        : `/docs/${docId}/${[...ancestors, item.id].join("/")}`;
+    const childAncestors = isOverviewItem ? ancestors : [...ancestors, item.id];
+
+    return (
+        <Collapsible defaultOpen className="group/collapsible">
+            <SidebarMenuItem>
+                <div className="flex items-center gap-1">
+                    <SidebarMenuButton
+                        asChild
+                        isActive={activeId === item.id}
+                        className="h-auto min-h-8 flex-1 items-start rounded-md px-2.5 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[active=true]:bg-primary/10 data-[active=true]:font-semibold data-[active=true]:text-primary dark:data-[active=true]:bg-primary/15"
+                    >
+                        <Link href={itemHref} className="flex min-w-0 items-start gap-2 text-sm leading-5">
+                            {hasChildren ? <FolderOpen className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" /> : <FileText className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />}
+                            <span className="min-w-0 whitespace-normal">{item.title}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                    {hasChildren && (
+                        <CollapsibleTrigger asChild>
+                            <button type="button" aria-label={`Toggle ${item.title} pages`} className="mt-1 rounded-md p-1 transition-colors hover:bg-muted/80">
+                                <ChevronDown className="size-4 text-muted-foreground transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                            </button>
+                        </CollapsibleTrigger>
+                    )}
+                </div>
+                {hasChildren && (
+                    <CollapsibleContent>
+                        <SidebarMenuSub className="ml-2 border-l border-border pl-2">
+                            {children.map((child) => (
+                                <DocsTreeItem key={child.id} item={child} docId={docId} activeId={activeId} ancestors={childAncestors} />
+                            ))}
+                        </SidebarMenuSub>
+                    </CollapsibleContent>
+                )}
+            </SidebarMenuItem>
+        </Collapsible>
+    );
+}
+
 export function ArticleSidebar({
     docId,
     documentTitle,
@@ -40,62 +99,9 @@ export function ArticleSidebar({
     const menu = (
         <SidebarGroup className="px-0">
             <SidebarMenu className="gap-2">
-                {navData.map((item) => {
-                    const subItems = item.subPages || item.subTree;
-                    const hasChildren = subItems && subItems.length > 0;
-                    const isOverviewItem =
-                        item.id === docId ||
-                        item.title?.trim().toLowerCase() === "overview";
-                    const itemHref = isOverviewItem
-                        ? `/docs/${docId}`
-                        : `/docs/${docId}/${item.id}`;
-
-                    return (
-                        <Collapsible key={item.id} defaultOpen className="group/collapsible">
-                            <SidebarMenuItem>
-                                <div className="flex items-center gap-1">
-                                    <SidebarMenuButton
-                                        asChild
-                                        isActive={activeId === item.id}
-                                        className="h-auto min-h-8 flex-1 items-start rounded-md px-2.5 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[active=true]:bg-primary/10 data-[active=true]:font-semibold data-[active=true]:text-primary dark:data-[active=true]:bg-primary/15"
-                                    >
-                                        <Link href={itemHref} className="flex min-w-0 items-start gap-2 text-sm leading-5">
-                                            {hasChildren ? <FolderOpen className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" /> : <FileText className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />}
-                                            <span className="min-w-0 whitespace-normal">{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                    {hasChildren && (
-                                        <CollapsibleTrigger asChild>
-                                            <button className="mt-1 rounded-md p-1 transition-colors hover:bg-muted/80">
-                                                <ChevronDown className="size-4 transition-transform group-data-[state=open]/collapsible:rotate-180 text-muted-foreground" />
-                                            </button>
-                                        </CollapsibleTrigger>
-                                    )}
-                                </div>
-                                {hasChildren && (
-                                    <CollapsibleContent>
-                                        <SidebarMenuSub className="ml-2 border-l border-border pl-2">
-                                            {subItems.map((subitem) => (
-                                                <SidebarMenuSubItem key={subitem.id} className="my-0.5">
-                                                    <SidebarMenuSubButton
-                                                        asChild
-                                                        isActive={activeId === subitem.id}
-                                                        className="h-auto min-h-7 items-start rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground data-[active=true]:bg-primary/10 data-[active=true]:font-semibold data-[active=true]:text-primary dark:data-[active=true]:bg-primary/15"
-                                                    >
-                                                        <Link href={`/docs/${docId}/${item.id}/${subitem.id}`} className="flex min-w-0 items-start gap-2 leading-5">
-                                                            <FileText className="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
-                                                            <span className="min-w-0 whitespace-normal">{subitem.title}</span>
-                                                        </Link>
-                                                    </SidebarMenuSubButton>
-                                                </SidebarMenuSubItem>
-                                            ))}
-                                        </SidebarMenuSub>
-                                    </CollapsibleContent>
-                                )}
-                            </SidebarMenuItem>
-                        </Collapsible>
-                    );
-                })}
+                {navData.map((item) => (
+                    <DocsTreeItem key={item.id} item={item} docId={docId} activeId={activeId} ancestors={[]} />
+                ))}
             </SidebarMenu>
         </SidebarGroup>
     );

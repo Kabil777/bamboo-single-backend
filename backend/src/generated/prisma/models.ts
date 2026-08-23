@@ -10,6 +10,7 @@
  */
 export type * from './models/User.js'
 export type * from './models/Tag.js'
+export type * from './models/SystemSetting.js'
 export type * from './models/RefreshToken.js'
 export type * from './models/Post.js'
 export type * from './models/PostLike.js'

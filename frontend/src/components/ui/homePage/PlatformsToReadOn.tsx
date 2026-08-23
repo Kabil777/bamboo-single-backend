@@ -92,7 +92,8 @@ export function PlatformsToReadOn() {
                             href={platform.websiteUrl}
                             external
                             actionLabel="Visit platform"
-                            cardClassName="h-[25rem] border border-foreground/[0.10]"
+                            cardClassName="min-h-[25rem] border border-foreground/[0.10]"
+                            contentClassName="pb-7"
                             coverClassName="!h-48 !aspect-auto"
                             showMeta={false}
                             imageFooter={

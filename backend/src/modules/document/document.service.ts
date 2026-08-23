@@ -36,6 +36,14 @@ export class DocumentService {
         });
     }
 
+    async delete(id: string, actorId: string) {
+        const existing = await prisma.document.findUnique({ where: { id }, select: { authorId: true } });
+        if (!existing) throw new NotFoundError("Document not found");
+        await this.assertCanManage(existing.authorId, actorId);
+        // DocumentPage rows are removed by the database's cascade relation.
+        await prisma.document.delete({ where: { id } });
+    }
+
     async createPage(documentId: string, actorId: string, input: unknown) {
         const document = await prisma.document.findUnique({ where: { id: documentId }, select: { authorId: true } });
         if (!document) throw new NotFoundError("Document not found");

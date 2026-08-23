@@ -16,6 +16,7 @@ export const DocsCard = ({
     external = false,
     actionLabel = "Read documentation",
     cardClassName = "",
+    contentClassName = "",
     coverClassName = "",
     showMeta = true,
     imageFooter,
@@ -28,6 +29,7 @@ export const DocsCard = ({
     external?: boolean;
     actionLabel?: string;
     cardClassName?: string;
+    contentClassName?: string;
     coverClassName?: string;
     showMeta?: boolean;
     imageFooter?: ReactNode;
@@ -118,7 +120,7 @@ export const DocsCard = ({
             </div>
 
             {/* Content — structure UNCHANGED */}
-            <div className="flex flex-col gap-3 p-4 flex-1">
+            <div className={`flex flex-1 flex-col gap-3 p-4 ${contentClassName}`}>
                 <div className="flex flex-col gap-1">
                     {/*
                         CHANGED: title — tracking-tight added, color explicitly

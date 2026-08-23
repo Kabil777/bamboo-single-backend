@@ -202,8 +202,20 @@ export const EditorModel = () => {
                 const response = await api.post<{ id: string }>("/api/v1/media/from-url", null, { params: { url: rawUrl } });
                 mediaId = response.data.id;
             }
-            if (type !== "blog") throw new Error("Docs are no longer available");
             const initialDescription = description.trim();
+            if (type === "docs") {
+                const { data: created } = await api.post<{ id: string }>(
+                    "/api/v1/docs",
+                    {
+                        title: title.trim(),
+                        content: initialDescription,
+                        mediaId,
+                    },
+                );
+                router.push(`/editor/docs/${created.id}`);
+                return;
+            }
+
             const created = await createPost({ title: title.trim(), description: initialDescription || null, content: initialDescription, mediaId });
             router.push(`/editor/blog/${created.id}`);
         } catch (error) {

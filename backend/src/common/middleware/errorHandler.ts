@@ -6,7 +6,7 @@ export const errorHandler = (
     err: Error,
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ) => {
     logger.error({ err, path: req.path }, err.message);
 

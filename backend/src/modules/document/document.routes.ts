@@ -49,6 +49,10 @@ router.patch("/:id", authRequired, async (req, res, next) => {
     try { res.json(await documentService.update(String(req.params.id), req.headers["x-user-id"] as string, req.body)); } catch (error) { next(error); }
 });
 
+router.delete("/:id", authRequired, async (req, res, next) => {
+    try { await documentService.delete(String(req.params.id), req.headers["x-user-id"] as string); res.status(204).end(); } catch (error) { next(error); }
+});
+
 router.post("/:id/pages", authRequired, async (req, res, next) => {
     try { res.status(201).json(await documentService.createPage(String(req.params.id), req.headers["x-user-id"] as string, req.body)); } catch (error) { next(error); }
 });

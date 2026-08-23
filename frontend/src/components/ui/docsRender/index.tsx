@@ -102,7 +102,11 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 		doc || ({ title: "", content: "", tree: [] } as any),
 		id,
 	);
-	const tree = doc?.description ? doc.tree : []; // Access tree safely
+	// Overview is a navigation-only item. Its content always comes from
+	// Document.content via usePathResolver, never from a copied tree node.
+	const tree: DocsTreeNode[] = doc
+		? [{ id: docId, title: "Overview", content: "", subTree: [] }, ...doc.tree]
+		: [];
 	const toc = extractToc(md);
 	const readingTime = estimateReadingTime(md);
 
@@ -131,7 +135,7 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 	const { description, tags } = doc;
 
 	// ─── Prev/Next from Docs Tree ────────────────
-	const flatPages = flattenTree(doc.tree || []);
+	const flatPages = flattenTree(tree);
 	const currentPageId = id.length === 1 ? docId : id[id.length - 1];
 	const currentIdx = flatPages.findIndex((p) => p.id === currentPageId);
 	const prevPage = currentIdx > 0 ? flatPages[currentIdx - 1] : null;
@@ -151,7 +155,7 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 			/>
 
 			{/* ─── Main Layout ─── */}
-			<div className="relative flex w-full justify-center gap-3 xl:gap-4">
+			<div className="relative flex w-full justify-center gap-3 lg:justify-start lg:pl-[21rem] xl:gap-4 xl:pl-[22rem]">
 				<ArticleSidebar
 					docId={docId}
 					documentTitle={doc.title}
@@ -160,7 +164,7 @@ export default function DocsRenderPage({ id }: { id: string[] }) {
 				/>
 
 				{/* ─── Article ─── */}
-				<article className="flex-1 min-w-0 w-full max-w-[49rem] px-4 sm:px-6 lg:px-2">
+				<article className="flex-1 min-w-0 w-full max-w-[49rem] px-4 sm:px-6 lg:px-6">
 					<motion.div
 						className="flex w-full min-w-0 flex-1 flex-col py-6 lg:py-10 text-neutral-800 dark:text-neutral-300"
 						initial="hidden"

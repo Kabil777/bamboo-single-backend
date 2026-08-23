@@ -1,4 +1,5 @@
 import { Upload } from "lucide-react";
+import { Check } from "lucide-react";
 import { IoLogoMarkdown } from "react-icons/io";
 import { useState } from "react";
 import type { Editor } from "@tiptap/react";
@@ -23,10 +24,14 @@ export const ToolBarBottom = ({
     editor,
     onSave,
     word,
+    saving = false,
+    autoSave = false,
 }: {
     editor: Editor | null;
     onSave: () => void;
     word: number;
+    saving?: boolean;
+    autoSave?: boolean;
 }) => {
     const [openMd, setOpenMd] = useState(false);
     const [openUpload, setOpenUpload] = useState(false);
@@ -37,6 +42,7 @@ export const ToolBarBottom = ({
         <>
             <FloatingActionBar
                 prefix={<span className="whitespace-nowrap">{word} characters</span>}
+                status={autoSave ? (saving ? "Saving changes…" : <span className="flex items-center gap-1.5"><Check className="size-3.5 text-emerald-600" aria-hidden="true" />All changes saved</span>) : undefined}
                 actions={[
                     {
                         icon: IoLogoMarkdown,

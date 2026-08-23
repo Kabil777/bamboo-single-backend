@@ -17,9 +17,10 @@ export interface FloatingAction {
 interface FloatingActionBarProps {
     actions: (FloatingAction | "separator")[];
     prefix?: React.ReactNode;
+    status?: React.ReactNode;
 }
 
-export default function FloatingActionBar({ actions, prefix }: FloatingActionBarProps) {
+export default function FloatingActionBar({ actions, prefix, status }: FloatingActionBarProps) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -33,6 +34,14 @@ export default function FloatingActionBar({ actions, prefix }: FloatingActionBar
                         {prefix}
                     </div>
                     <div className="w-px h-5 bg-border/20 mx-0.5" />
+                </>
+            )}
+            {status && (
+                <>
+                    <div className="w-px h-5 bg-border/20 mx-0.5" />
+                    <div className="px-2 py-1 text-[11px] font-medium text-muted-foreground/80">
+                        {status}
+                    </div>
                 </>
             )}
             {actions.map((action, index) => {

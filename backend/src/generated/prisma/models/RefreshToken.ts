@@ -363,14 +363,6 @@ export type RefreshTokenUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RefreshTokenUpdateToOneWithWhereWithoutUserInput, Prisma.RefreshTokenUpdateWithoutUserInput>, Prisma.RefreshTokenUncheckedUpdateWithoutUserInput>
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type RefreshTokenCreateWithoutUserInput = {
   refreshToken: string
   expiry: Date | string

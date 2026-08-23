@@ -3,7 +3,6 @@ import { Docs, DocsState } from "@/types/docs/docs-base";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import api from "@/api/axios";
-import injectOverview from "@/hooks/useAddOverview";
 
 export const DocsRTK = createAsyncThunk<Docs, UUID, { state: RootState }>(
     "/docs/id",
@@ -64,10 +63,7 @@ const getDocs = createSlice({
         builder.addCase(DocsRTK.fulfilled, (s, a) => {
             const id = a.meta.arg;
             const doc = a.payload;
-            s.entities[id] = {
-                ...doc,
-                tree: injectOverview(id, doc.tree, doc.content),
-            };
+            s.entities[id] = doc;
             s.loadingById[id] = false;
         });
         builder.addCase(DocsRTK.rejected, (s, a) => {

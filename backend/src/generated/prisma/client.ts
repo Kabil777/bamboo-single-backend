@@ -52,6 +52,11 @@ export type User = Prisma.UserModel
  */
 export type Tag = Prisma.TagModel
 /**
+ * Model SystemSetting
+ * 
+ */
+export type SystemSetting = Prisma.SystemSettingModel
+/**
  * Model RefreshToken
  * 
  */

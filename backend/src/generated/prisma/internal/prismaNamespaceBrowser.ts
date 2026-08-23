@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Tag: 'Tag',
+  SystemSetting: 'SystemSetting',
   RefreshToken: 'RefreshToken',
   Post: 'Post',
   PostLike: 'PostLike',
@@ -104,6 +105,16 @@ export const TagScalarFieldEnum = {
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const SystemSettingScalarFieldEnum = {
+  id: 'id',
+  collaborationEnabled: 'collaborationEnabled',
+  documentAutosaveEnabled: 'documentAutosaveEnabled',
+  documentAutosaveDelay: 'documentAutosaveDelay'
+} as const
+
+export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
 
 
 export const RefreshTokenScalarFieldEnum = {

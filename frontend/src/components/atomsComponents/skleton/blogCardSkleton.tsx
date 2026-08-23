@@ -28,7 +28,7 @@ export function BlogCardSkeleton() {
                     ))}
                 </div>
             </div>
-            <div className="col-span-full sm:col-span-2 sm:row-start-1">
+            <div className="col-span-full sm:col-span-2 sm:col-start-4 sm:row-start-1">
                 <Skeleton className="h-[160px] w-full rounded-xl" />
             </div>
         </div>

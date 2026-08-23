@@ -2,15 +2,11 @@ import { Docs } from "@/types/docs/docs-base";
 
 export function usePathResolver(doc: Docs, path: string[]) {
     if (path.length === 1 || path[1] === "overview") {
-        const overviewNode = doc.tree.find(
-            (node) =>
-                node.id === doc.id ||
-                node.id === "overview" ||
-                node.title?.trim().toLowerCase() === "overview",
-        );
         return {
             title: doc.title,
-            content: overviewNode?.content ?? doc.content,
+            // The document row is the only persisted source for the overview.
+            // Sidebar entries are navigation-only and must never shadow it.
+            content: doc.content,
             isOverview: true,
         };
     }
